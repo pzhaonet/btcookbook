@@ -1,0 +1,101 @@
+--- 
+title: "BT 擂台赛"
+subtitle: Base R vs. Tidyverse
+author: "大鹏（编）"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+biblio-style: apalike
+link-citations: yes
+github-repo: "pzhaonet/book-bt"
+---
+
+
+```{r include=FALSE}
+knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FALSE)
+```
+
+# 序言 {-}
+
+本文素材来自[统计之都](https://d.cosx.org)。文中每个示例均列出了原始出处。感谢各位贡献者。
+
+
+# 作图
+
+<style>
+.cl{
+  float: left;
+  width: 49%;
+  text-align: left;
+}
+.cr{
+  display: inline-block;
+  width: 2%;
+  text-align: center;
+}
+.cr{
+  float: right;
+  width: 49%;
+  text-align: left;
+}
+</style>
+
+## 曲线簇 
+
+函数 $xy = z$，$z$ 分别取值1、2、3、4， $x$ 和 $y$ 的取值区间为 (0, 10]，如何画出这4条曲线？（[出处](https://d.cosx.org/d/420766)）
+
+<div class="cl">
+**B 版**
+
+```{r}
+x = seq(0.1, 10, by = 0.1)
+plot(x, 1/x, 
+     type = 'l', xlab = 'x', ylab = 'y')
+for (z in 2:4) lines(x, z/x, col = z) 
+legend('topright', legend = 1:4, col = 1:4, 
+       lty = 1, title = 'z')
+
+# or
+for (z in 4:1) 
+  curve(z/x, 0, 10, add = z < 4, col = z)
+legend('topright', legend = 4:1, col = 4:1, 
+       lty = 1, title = 'z')
+
+# or
+matplot(outer(seq(0.1, 10, by = 0.1), 1:4, 
+              function(x, a) a / x),
+  xlab = "x", ylab = "z/x", type = "l", 
+  col = 1:4, lty = 1
+)
+legend("topright", legend = 4:1, col = 4:1, 
+       lty = 1, title = "z")
+```
+
+
+</div>
+<div class="cc">
+
+</div>
+
+<div class="cr">
+
+**T 版**
+
+```{r}
+library(ggplot2)
+library(magrittr)
+expand.grid(x = seq(0.1, 10, by = 0.1),
+            z = 1:4) %>% 
+  transform(y = z/x, z = factor(z)) %>% 
+  ggplot() +
+  geom_line(aes(x, y, color = z))
+# Or
+out <- ggplot(data.frame(x = c(0, 10)), aes(x))
+for (z in 1:4) {
+  out = out + 
+    stat_function(fun = function(.x) z/.x, 
+                  color = z)
+}
+out
+```
+</div>
