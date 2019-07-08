@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>BT 擂台赛</title>
-  <meta name="description" content="BT 擂台赛" />
+  <title>1 作图 | BT 擂台赛</title>
+  <meta name="description" content="1 作图 | BT 擂台赛" />
   <meta name="generator" content="bookdown 0.11 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="BT 擂台赛" />
+  <meta property="og:title" content="1 作图 | BT 擂台赛" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="pzhaonet/book-bt" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="BT 擂台赛" />
+  <meta name="twitter:title" content="1 作图 | BT 擂台赛" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="section-1.html">
+<link rel="prev" href="index.html">
+<link rel="next" href="section-3.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -156,37 +156,83 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">BT 擂台赛</h1>
-<h2 class="subtitle"><em>Base R vs. Tidyverse</em></h2>
-<p class="author"><em>大鹏（编）</em></p>
-<p class="date"><em>2019-07-08</em></p>
+<div id="section-1" class="section level1">
+<h1><span class="header-section-number">1</span> 作图</h1>
+<div id="section-2" class="section level2">
+<h2><span class="header-section-number">1.1</span> 曲线簇</h2>
+<p><a href="https://d.cosx.org/d/420766">题目</a>：函数 <span class="math inline">\(xy = z\)</span>，<span class="math inline">\(z\)</span> 分别取值1、2、3、4， <span class="math inline">\(x\)</span> 和 <span class="math inline">\(y\)</span> 的取值区间为 (0, 10]，如何画出这4条曲线？</p>
+<div class="cl">
+<p><strong>B 版</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)
+<span class="kw">plot</span>(x, <span class="dv">1</span> <span class="op">/</span><span class="st"> </span>x,
+  <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;y&quot;</span>
+)
+<span class="cf">for</span> (z <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="dv">4</span>) <span class="kw">lines</span>(x, z <span class="op">/</span><span class="st"> </span>x, <span class="dt">col =</span> z)
+<span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>,
+  <span class="dt">legend =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,
+  <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">title =</span> <span class="st">&quot;z&quot;</span>
+)</code></pre>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or</span>
+<span class="cf">for</span> (z <span class="cf">in</span> <span class="dv">4</span><span class="op">:</span><span class="dv">1</span>) {
+  <span class="kw">curve</span>(z <span class="op">/</span><span class="st"> </span>x, <span class="dv">0</span>, <span class="dv">10</span>, <span class="dt">add =</span> z <span class="op">&lt;</span><span class="st"> </span><span class="dv">4</span>, <span class="dt">col =</span> z)
+}
+<span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>,
+  <span class="dt">legend =</span> <span class="dv">4</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">col =</span> <span class="dv">4</span><span class="op">:</span><span class="dv">1</span>,
+  <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">title =</span> <span class="st">&quot;z&quot;</span>
+)</code></pre>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># or</span>
+<span class="kw">matplot</span>(<span class="kw">outer</span>(
+  <span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>), <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,
+  <span class="cf">function</span>(x, a) a <span class="op">/</span><span class="st"> </span>x
+),
+<span class="dt">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;z/x&quot;</span>, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>,
+<span class="dt">col =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">lty =</span> <span class="dv">1</span>
+)
+<span class="kw">legend</span>(<span class="st">&quot;topright&quot;</span>,
+  <span class="dt">legend =</span> <span class="dv">4</span><span class="op">:</span><span class="dv">1</span>, <span class="dt">col =</span> <span class="dv">4</span><span class="op">:</span><span class="dv">1</span>,
+  <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">title =</span> <span class="st">&quot;z&quot;</span>
+)</code></pre>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
 </div>
-<div id="section" class="section level1 unnumbered">
-<h1>序言</h1>
-<p><a href="https://d.cosx.org/d/420762/11">前些天</a>有感而发：</p>
-<blockquote>
-<p>cosx 快成了 Base R vs. TidyVerse 的擂台了。</p>
-</blockquote>
-<p><a href="https://d.cosx.org/d/420766/18">昨天</a>突发奇想：</p>
-<blockquote>
-<p>建议以后对 cosx 所有的提问都给出 Base R 版和 Tidyverse 版 。做做大脑体操。简称 B 版和 T 版。我自告奋勇整理成书。书名我都想好了：BT 擂台赛。</p>
-</blockquote>
-<p>今天建了个 bookdown 项目：</p>
-<ul>
-<li>预览：&lt;<a href="https://bookdown.org/baydap/rbt/" class="uri">https://bookdown.org/baydap/rbt/</a>&gt;</li>
-<li>Repo: &lt;<a href="https://github.com/pzhaonet/btcookbook" class="uri">https://github.com/pzhaonet/btcookbook</a>&gt;</li>
-</ul>
-<p>欢迎有志之士加入一起完成。</p>
-<p>本文素材来自<a href="https://d.cosx.org">统计之都</a>。文中每个示例均列出了原始出处。感谢各位贡献者。</p>
+<div class="cc">
+
+</div>
+<div class="cr">
+<p><strong>T 版</strong></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggplot2)
+<span class="kw">library</span>(magrittr)
+<span class="kw">expand.grid</span>(
+  <span class="dt">x =</span> <span class="kw">seq</span>(<span class="fl">0.1</span>, <span class="dv">10</span>, <span class="dt">by =</span> <span class="fl">0.1</span>),
+  <span class="dt">z =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>
+) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">transform</span>(<span class="dt">y =</span> z <span class="op">/</span><span class="st"> </span>x, <span class="dt">z =</span> <span class="kw">factor</span>(z)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x, y, <span class="dt">color =</span> z))</code></pre>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Or</span>
+out &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>)), <span class="kw">aes</span>(x))
+
+<span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {
+  out =<span class="st"> </span>out <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> <span class="cf">function</span>(.x ,z) z<span class="op">/</span>.x, 
+                            <span class="dt">color =</span> i, 
+                            <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">z=</span>i),
+                            <span class="dt">xlim=</span><span class="kw">c</span>(i<span class="op">/</span><span class="dv">10</span>,<span class="dv">10</span>) )
+}
+out</code></pre>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="section-1.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
