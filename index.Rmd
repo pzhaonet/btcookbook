@@ -84,7 +84,8 @@ expand.grid(
 out <- ggplot(data.frame(x = c(0, 10)), aes(x))
 
 for (i in 1:4) {
-  out = out + stat_function(fun = function(.x ,z) z/.x, 
+  out = out + 
+    stat_function(fun = function(.x ,z) z/.x, 
                             color = i, 
                             args = list(z=i),
                             xlim=c(i/10,10) )

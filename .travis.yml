@@ -1,0 +1,37 @@
+language: r
+cache: packages
+# pandoc_version: 1.19.2.1
+
+addons:
+  apt:
+    update: true
+    sources:
+      - sourceline: 'ppa:opencpu/imagemagick'
+    packages:
+      - libmagick++-dev
+
+#before_script:
+#  - chmod +x ./_build.sh
+#  - chmod +x ./_deploy_to_staging.sh
+
+script:
+  - bash scripts/_build.sh
+
+#after_success:
+#  - bash scripts/_deploy_to_staging.sh
+
+branches:
+  only:
+    - master
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: bash scripts/_deploy_to_production.sh
+  on:
+    branch: master
+
+cache:
+  packages: yes
+  directories:
+    - $TRAVIS_BUILD_DIR/_bookdown_files
