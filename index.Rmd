@@ -82,13 +82,14 @@ expand.grid(
   geom_line(aes(x, y, color = z))
 # Or
 out <- ggplot(data.frame(x = c(0, 10)), aes(x))
-for (z in 1:4) {
-  out <- out +
-    stat_function(
-      fun = function(.x) z / .x,
-      color = z
-    )
+
+for (i in 1:4) {
+  out = out + stat_function(fun = function(.x ,z) z/.x, 
+                            color = i, 
+                            args = list(z=i),
+                            xlim=c(i/10,10) )
 }
 out
 ```
+
 :::
