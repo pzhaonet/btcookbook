@@ -30,7 +30,7 @@ knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FAL
 - 预览：<<https://bookdown.org/baydap/rbt/>>
 - Repo: <<https://github.com/pzhaonet/btcookbook>>
 
-欢迎有志之士加入一起完成。
+可能“擂台赛”这个词有些误导，然而其实并不是要他们分输赢，而是通过比较来强化我们对他们的理解和消化。欢迎有志之士加入一起完成。
 
 本文素材来自[统计之都](https://d.cosx.org)。文中每个示例均列出了原始出处。感谢各位贡献者。
 
