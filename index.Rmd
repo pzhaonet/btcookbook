@@ -94,7 +94,9 @@ expand.grid(
 ) %>%
   transform(y = z / x, z = factor(z)) %>%
   ggplot() +
-  geom_line(aes(x, y, color = z))
+  geom_line(aes(x, y, color = z)) +
+  coord_cartesian(ylim = c(0, 10), expand = F)
+
 # Or
 out <- ggplot(data.frame(x = c(0, 10)), aes(x))
 
