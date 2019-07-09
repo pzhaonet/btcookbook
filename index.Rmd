@@ -39,7 +39,7 @@ knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FAL
 
 ## 曲线簇 
 
-[题目](https://d.cosx.org/d/420766)：函数 $xy = z$，$z$ 分别取值1、2、3、4， $x$ 和 $y$ 的取值区间为 (0, 10]，如何画出这4条曲线？
+[题目](https://d.cosx.org/d/420766)：函数 $xy = z$，$z$ 取值为 1、2、3、4， $x$ 和 $y$ 的取值区间为 (0, 10]，如何画出这4条曲线？
 
 ::: cl
 **B 版**
@@ -114,7 +114,7 @@ out
 
 ## 数据框筛选重写
 
-[题目](https://d.cosx.org/d/420762)：数据框 mtcars，我想对满足某些条件比如行 2 到 5，列为 'cyl' 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。
+[题目](https://d.cosx.org/d/420762)：数据框 mtcars，对满足某些条件比如行 2 到 5、列为 'cyl' 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。
 
 
 :::cl
