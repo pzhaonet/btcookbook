@@ -1,0 +1,29 @@
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+.cl{
+  float: left;
+  width: 49%;
+  text-align: left;
+}
+.cc{
+  display: inline-block;
+  width: 2%;
+  text-align: center;
+}
+.cr{
+  float: right;
+  width: 49%;
+  text-align: left;
+}
