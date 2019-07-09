@@ -3,9 +3,9 @@
 set -ev
 
 # add the update to fix ctexbook too old issue
-tlmgr update --self --all --reinstall-forcibly-removed
+# tlmgr update --self --all --reinstall-forcibly-removed
 # preprocess Rmd files before building
-Rscript scripts/bookdown_helper.R
+# Rscript scripts/bookdown_helper.R
 # build the books
 # Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::pdf_book')"
 # Rscript -e "bookdown::render_book('index.Rmd', 'bookdown::epub_book')"
