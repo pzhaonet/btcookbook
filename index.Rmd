@@ -112,12 +112,52 @@ out
 
 :::
 
+## 直方图的对数坐标 
+
+[题目](https://d.cosx.org/d/420798)：如何绘制对数坐标的直方图？
+
+
+```{r}
+mydata <- rnorm(100)
+```
+
+::: cl
+**B 版**
+
+```{r}
+myhist <- hist(mydata, plot = FALSE)
+plot(myhist$mids, myhist$counts, 
+     log = "y", type = 'h')
+
+# or
+myhist_log <- myhist
+myhist_log$counts <- log10(myhist_log$counts)
+plot(myhist_log, ylab = 'log(Frequency)')
+```
+
+:::
+
+::: cc
+:::
+
+::: cr
+**T 版**
+
+```{r}
+library(ggplot2)
+ggplot() + 
+  geom_histogram(aes(mydata), breaks = seq(-2, 2, 0.5)) + 
+  scale_y_log10()
+```
+
+:::
+
+
 # 数据
 
 ## 数据框筛选重写
 
 [题目](https://d.cosx.org/d/420762)：数据框 mtcars，对满足某些条件比如行 2 到 5、列为 'cyl' 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。
-
 
 :::cl
 
