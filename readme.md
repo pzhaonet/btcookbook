@@ -1,3 +1,7 @@
+# Base R vs. Tidyverse: BT 擂台赛
+
+[![Build Status](https://travis-ci.org/pzhaonet/btcookbook.svg?branch=master)](https://travis-ci.org/pzhaonet/btcookbook)
+
 [前些天](https://d.cosx.org/d/420762/11)有感而发：
 
 > cosx 快成了 Base R vs. TidyVerse 的擂台了。
