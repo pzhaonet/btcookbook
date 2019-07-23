@@ -27,21 +27,20 @@ knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FAL
 
 今天建了个 bookdown 项目：
 
-- 预览：<<https://bookdown.org/baydap/rbt/>>
-- Repo: <<https://github.com/pzhaonet/btcookbook>>
+- 预览：<https://pzhaonet.github.io/btcookbook>
+- Repo: <https://github.com/pzhaonet/btcookbook>
 
 可能“擂台赛”这个词有些误导，然而其实并不是要他们分输赢，而是通过比较来强化我们对他们的理解和消化。欢迎有志之士加入一起完成。
 
 本文素材来自[统计之都](https://d.cosx.org)。文中每个示例均列出了原始出处。感谢各位贡献者。
 
 
-# 作图
-
-## 曲线簇 
+# 曲线簇 
 
 [题目](https://d.cosx.org/d/420766)：函数 $xy = z$，$z$ 取值为 1、2、3、4， $x$ 和 $y$ 的取值区间为 (0, 10]，如何画出这4条曲线？
 
 ::: cl
+
 **B 版**
 
 ```{r}
@@ -77,12 +76,11 @@ legend("topright",
   lty = 1, title = "z"
 )
 ```
-:::
 
-::: cc
 :::
 
 ::: cr
+
 **T 版**
 
 ```{r}
@@ -112,16 +110,19 @@ out
 
 :::
 
-## 直方图的对数坐标 
+# 直方图的对数坐标 
 
 [题目](https://d.cosx.org/d/420798)：如何绘制对数坐标的直方图？
 
 
 ```{r}
+# 准备数据
+set.seed(1)
 mydata <- rnorm(100)
 ```
 
 ::: cl
+
 **B 版**
 
 ```{r}
@@ -137,10 +138,8 @@ plot(myhist_log, ylab = 'log(Frequency)')
 
 :::
 
-::: cc
-:::
-
 ::: cr
+
 **T 版**
 
 ```{r}
@@ -153,9 +152,7 @@ ggplot() +
 :::
 
 
-# 数据
-
-## 数据框筛选重写
+# 数据框筛选重写
 
 [题目](https://d.cosx.org/d/420762)：数据框 mtcars，对满足某些条件比如行 2 到 5、列为 'cyl' 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。
 
