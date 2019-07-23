@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 数据 | BT 擂台赛</title>
-  <meta name="description" content="2 数据 | BT 擂台赛" />
+  <title>2 直方图的对数坐标 | BT 擂台赛</title>
+  <meta name="description" content="2 直方图的对数坐标 | BT 擂台赛" />
   <meta name="generator" content="bookdown 0.12.1 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 数据 | BT 擂台赛" />
+  <meta property="og:title" content="2 直方图的对数坐标 | BT 擂台赛" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="pzhaonet/book-bt" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 数据 | BT 擂台赛" />
+  <meta name="twitter:title" content="2 直方图的对数坐标 | BT 擂台赛" />
   
   
   
@@ -24,15 +24,15 @@
 <meta name="author" content="大鹏（编）" />
 
 
-<meta name="date" content="2019-07-22" />
+<meta name="date" content="2019-07-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="section-1.html">
-<link rel="next" href="e5908ee8aeb03c6120687265663d2223666e312220636c6173733d22666f6f746e6f74652d726566222069643d22666e72656631223e3c7375703e313c2f7375703e3c2f613e.html">
+<link rel="prev" href="section-1.html"/>
+<link rel="next" href="section-3.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -131,13 +131,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>序言</a></li>
-<li class="chapter" data-level="1" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i><b>1</b> 作图</a><ul>
-<li class="chapter" data-level="1.1" data-path="section-1.html"><a href="section-1.html#section-1.1"><i class="fa fa-check"></i><b>1.1</b> 曲线簇</a></li>
-<li class="chapter" data-level="1.2" data-path="section-1.html"><a href="section-1.html#section-1.2"><i class="fa fa-check"></i><b>1.2</b> 直方图的对数坐标</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i><b>2</b> 数据</a><ul>
-<li class="chapter" data-level="2.1" data-path="section-2.html"><a href="section-2.html#section-2.1"><i class="fa fa-check"></i><b>2.1</b> 数据框筛选重写</a></li>
-</ul></li>
+<li class="chapter" data-level="1" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i><b>1</b> 曲线簇</a></li>
+<li class="chapter" data-level="2" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i><b>2</b> 直方图的对数坐标</a></li>
+<li class="chapter" data-level="3" data-path="section-3.html"><a href="section-3.html"><i class="fa fa-check"></i><b>3</b> 数据框筛选重写</a></li>
 <li class="chapter" data-level="" data-path=""><a href="#e5908ee8aeb0"><i class="fa fa-check"></i>后记</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -159,54 +155,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="section-2" class="section level1">
-<h1><span class="header-section-number">2</span> 数据</h1>
-<div id="section-2.1" class="section level2">
-<h2><span class="header-section-number">2.1</span> 数据框筛选重写</h2>
-<p><a href="https://d.cosx.org/d/420762">题目</a>：数据框 mtcars，对满足某些条件比如行 2 到 5、列为 ‘cyl’ 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。</p>
+<h1><span class="header-section-number">2</span> 直方图的对数坐标</h1>
+<p><a href="https://d.cosx.org/d/420798">题目</a>：如何绘制对数坐标的直方图？</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="co"># 准备数据</span></a>
+<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">set.seed</span>(<span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">mydata &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">100</span>)</a></code></pre></div>
 <div class="cl">
 <p><strong>B 版</strong></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">mtcars<span class="op">$</span>cyl[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>][mtcars<span class="op">$</span>cyl[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co"># or</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">transform</span>(mtcars[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>,], </a>
-<a class="sourceLine" id="cb10-4" data-line-number="4">          <span class="dt">new_cyl =</span> <span class="kw">ifelse</span>(cyl <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>, <span class="dv">2</span>, cyl))</a></code></pre></div>
-<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-## Datsun 710        22.8   2  108  93 3.85 2.320 18.61  1  1    4    1
-## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-##                   new_cyl
-## Mazda RX4 Wag           6
-## Datsun 710              2
-## Hornet 4 Drive          6
-## Hornet Sportabout       8</code></pre>
-</div>
-<div class="cc">
-
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">myhist &lt;-<span class="st"> </span><span class="kw">hist</span>(mydata, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">plot</span>(myhist<span class="op">$</span>mids, myhist<span class="op">$</span>counts, </a>
+<a class="sourceLine" id="cb7-3" data-line-number="3">     <span class="dt">log =</span> <span class="st">&quot;y&quot;</span>, <span class="dt">type =</span> <span class="st">&#39;h&#39;</span>)</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># or</span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">myhist_log &lt;-<span class="st"> </span>myhist</a>
+<a class="sourceLine" id="cb8-3" data-line-number="3">myhist_log<span class="op">$</span>counts &lt;-<span class="st"> </span><span class="kw">log10</span>(myhist_log<span class="op">$</span>counts)</a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">plot</span>(myhist_log, <span class="dt">ylab =</span> <span class="st">&#39;log(Frequency)&#39;</span>)</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
 </div>
 <div class="cr">
 <p><strong>T 版</strong></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">m1 &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">row_number</span>() <span class="op">%in%</span><span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(cyl), </a>
-<a class="sourceLine" id="cb12-5" data-line-number="5">            <span class="op">~</span><span class="st"> </span><span class="kw">ifelse</span>(. <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>, . &lt;-<span class="st"> </span><span class="dv">2</span>, . &lt;-<span class="st"> </span><span class="dv">6</span>))</a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co"># or</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cyl =</span> </a>
-<a class="sourceLine" id="cb12-10" data-line-number="10">           <span class="kw">ifelse</span>(</a>
-<a class="sourceLine" id="cb12-11" data-line-number="11">             (<span class="kw">row_number</span>() <span class="op">%in%</span><span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">5</span> <span class="op">&amp;</span>cyl <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>), </a>
-<a class="sourceLine" id="cb12-12" data-line-number="12">             <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb12-13" data-line-number="13">             cyl)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb12-14" data-line-number="14"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-## 3 22.8   2  108  93 3.85 2.320 18.61  1  1    4    1
-## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
-</div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(mydata), <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.5</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_log10</span>()</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 </div>
             </section>
@@ -215,7 +187,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="section-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="e5908ee8aeb03c6120687265663d2223666e312220636c6173733d22666f6f746e6f74652d726566222069643d22666e72656631223e3c7375703e313c2f7375703e3c2f613e.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="section-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -267,8 +239,9 @@ gitbook.start({
     script.type = "text/javascript";
     var src = "true";
     if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(src))
-      src = src.replace(/^https?:/, '');
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
