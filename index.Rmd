@@ -1,6 +1,6 @@
 --- 
 title: "TNT 擂台赛"
-subtitle: Tidyverse vs. Non-Tidyverse
+subtitle: Tidyverse vs. Non-Tidyverse: To be or not to be
 author: "大鹏（编）"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -32,7 +32,7 @@ knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FAL
 
 然而，始料未及的是，有些朋友对如何界定 Base R 提出了[不同的意见](https://d.cosx.org/d/420769)。这个确实比较头大，尤其对我这样一个既不是搞数据科学的，又不是搞统计学的来说更为如此。我重申：可能“擂台赛”这个词有些误导，然而其实并不是要他们分输赢，而是通过比较来强化我们对他们的理解和消化。
 
-为了避免不必要的误会和纷争，这个项目[改名](https://d.cosx.org/d/420808-ggplot/15) 为 Tidyverse vs. Non-Tidyverse (TNT) 擂台赛，这总容易界定了吧。希望因改名而淡化一些火药味。学习为主。欢迎有志之士加入一起完成。
+为了避免不必要的误会和纷争，这个项目[改名](https://d.cosx.org/d/420808-ggplot/15) 为 Tidyverse vs. Non-Tidyverse (TNT) 擂台赛。TNT [背后的含义](https://d.cosx.org/d/420808/19)可以是 “To be or Not To be”。希望因改名而淡化一些火药味。学习为主。欢迎有志之士加入一起完成。
 
 本文素材来自[统计之都](https://d.cosx.org)。文中每个示例均列出了原始出处。感谢各位贡献者。
 
