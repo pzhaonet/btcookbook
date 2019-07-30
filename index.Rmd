@@ -219,7 +219,7 @@ p +
 如果用球面投影 "ortho"，纬度虽然不均匀，但显示在球面上更为自然，可是球背面就被挡住了，非洲和南美洲很难看到：
 
 ```{r}
-p + coord_map("orthographic"， xlim = lr)
+p + coord_map("orthographic", xlim = lr)
 ```
 
 止步于此。
