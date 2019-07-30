@@ -1,6 +1,6 @@
 --- 
-title: "BT 擂台赛"
-subtitle: Base R vs. Tidyverse
+title: "TNT 擂台赛"
+subtitle: Tidyverse vs. Non-Tidyverse
 author: "大鹏（编）"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -21,16 +21,18 @@ knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FAL
 
 > cosx 快成了 Base R vs. TidyVerse 的擂台了。
 
-[昨天](https://d.cosx.org/d/420766/18)突发奇想：
+[有一天](https://d.cosx.org/d/420766/18)突发奇想：
 
 > 建议以后对 cosx 所有的提问都给出 Base R 版和 Tidyverse 版 。做做大脑体操。简称 B 版和 T 版。我自告奋勇整理成书。书名我都想好了：BT 擂台赛。
 
-今天建了个 bookdown 项目：
+于是建了个 bookdown 项目：
 
 - 预览：<https://pzhaonet.github.io/btcookbook>
 - Repo: <https://github.com/pzhaonet/btcookbook>
 
-可能“擂台赛”这个词有些误导，然而其实并不是要他们分输赢，而是通过比较来强化我们对他们的理解和消化。欢迎有志之士加入一起完成。
+然而，始料未及的是，有些朋友对如何界定 Base R 提出了[不同的意见](https://d.cosx.org/d/420769)。这个确实比较头大，尤其对我这样一个既不是搞数据科学的，又不是搞统计学的来说更为如此。我重申：可能“擂台赛”这个词有些误导，然而其实并不是要他们分输赢，而是通过比较来强化我们对他们的理解和消化。
+
+为了避免不必要的误会和纷争，这个项目[改名](https://d.cosx.org/d/420808-ggplot/15) 为 Tidyverse vs. Non-Tidyverse (TNT) 擂台赛，这总容易界定了吧。希望因改名而淡化一些火药味。学习为主。欢迎有志之士加入一起完成。
 
 本文素材来自[统计之都](https://d.cosx.org)。文中每个示例均列出了原始出处。感谢各位贡献者。
 
@@ -41,7 +43,7 @@ knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FAL
 
 ::: cl
 
-**B 版**
+**N 版**
 
 ```{r}
 x <- seq(0.1, 10, by = 0.1)
@@ -123,7 +125,7 @@ mydata <- rnorm(100)
 
 ::: cl
 
-**B 版**
+**N 版**
 
 ```{r}
 myhist <- hist(mydata, plot = FALSE)
@@ -151,6 +153,78 @@ ggplot() +
 
 :::
 
+# 绘制地图
+
+[题目](https://d.cosx.org/d/420808)：ggplot 绘制世界地图的基本方法是这样的：
+
+```{r}
+require(ggplot2)
+p <- ggplot(map_data("world"), aes(long,lat,group=group)) + geom_polygon()
+p
+```
+
+我想根据经纬度的范围来切出一块来，例如：
+
+```{r}
+lr <- c(-140, 120)
+p + coord_map(xlim = lr)
+```
+
+就乱套了，有些地方出现了横跨左右的冗余色块。如果改用 `geom_path()` 则出现冗余线条。
+
+SO 上[类似的讨论](https://stackoverflow.com/questions/23652711/why-does-coord-map-produce-a-weird-output)给出的解答只在 `xlim=c(-180,180)` 适用。换个小范围就不行了。
+
+[ggplot2 官方说明书](https://ggplot2-book.org/coord.html) 章节末尾给出的示例图就是乱的，居然没有任何说明：
+
+![](https://ggplot2-book.org/coord_files/figure-html/map-world-1.png)
+
+
+中文社区有[文章](https://ask.hellobi.com/blog/R_shequ/18995)详细介绍如何画地图，然而给的示例中，同样无视这个问题：
+
+![](https://ask.hellobi.com/uploads/article/20190121/okycyifpko.webp)
+
+如何能做出纬度均匀、无冗余色块、展示宽广区域的地图呢？
+
+:::cl
+
+**N 版**
+
+使用 maps 包，用 `xlim` 和 `ylim` 指定范围即可。
+```{r}
+maps::map("world", fill=TRUE, col="white", 
+          bg="lightblue", xlim = c(-140, 120))
+```
+
+
+:::
+
+:::cc
+:::
+
+:::cr
+
+**T 版**
+
+在 `coord_map()` 函数里用 `projection` 更换投影坐标系，用 `orientation ` 选择视角。
+
+例如，用默认投影和北极视角，可以消除冗余色块，但是纬度不均匀。
+
+```{r}
+p + 
+  coord_map(xlim = lr, 
+            orientation = c(90, 0, 0)) + 
+  scale_y_continuous(breaks = -9:9 * 10)
+```
+
+如果用球面投影 "ortho"，纬度虽然不均匀，但显示在球面上更为自然，可是球背面就被挡住了，非洲和南美洲很难看到：
+
+```{r}
+p + coord_map("orthographic"， xlim = lr)
+```
+
+止步于此。
+
+:::
 
 # 数据框筛选重写
 
@@ -158,7 +232,7 @@ ggplot() +
 
 :::cl
 
-**B 版**
+**N 版**
 
 ```{r}
 mtcars$cyl[2:5][mtcars$cyl[2:5] < 6] <- 2
