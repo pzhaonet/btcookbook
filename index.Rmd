@@ -1,6 +1,6 @@
 --- 
 title: "TNT 擂台赛"
-subtitle: Tidyverse vs. Non-Tidyverse: To be or not to be
+subtitle: "Tidyverse vs. Non-Tidyverse: To be or not to be"
 author: "大鹏（编）"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
