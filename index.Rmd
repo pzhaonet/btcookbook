@@ -222,7 +222,11 @@ p +
 p + coord_map("orthographic", xlim = lr)
 ```
 
-止步于此。
+完美解决方案是用 `coord_quickmap()`:
+
+```{r}
+p + coord_quickmap(xlim = lr)
+```
 
 :::
 
