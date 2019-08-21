@@ -24,7 +24,7 @@
 <meta name="author" content="大鹏（编）" />
 
 
-<meta name="date" content="2019-08-18" />
+<meta name="date" content="2019-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -165,16 +165,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb25-2" data-line-number="2"><span class="co"># or</span></a>
 <a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw">transform</span>(mtcars[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>,], </a>
 <a class="sourceLine" id="cb25-4" data-line-number="4">          <span class="dt">new_cyl =</span> <span class="kw">ifelse</span>(cyl <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>, <span class="dv">2</span>, cyl))</a></code></pre></div>
-<pre><code>##                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-## Datsun 710        22.8   2  108  93 3.85 2.320 18.61  1  1    4    1
-## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-##                   new_cyl
-## Mazda RX4 Wag           6
-## Datsun 710              2
-## Hornet 4 Drive          6
-## Hornet Sportabout       8</code></pre>
+<pre><code>##                    mpg cyl disp  hp
+## Mazda RX4 Wag     21.0   6  160 110
+## Datsun 710        22.8   2  108  93
+## Hornet 4 Drive    21.4   6  258 110
+## Hornet Sportabout 18.7   8  360 175
+##                   drat    wt  qsec vs
+## Mazda RX4 Wag     3.90 2.875 17.02  0
+## Datsun 710        3.85 2.320 18.61  1
+## Hornet 4 Drive    3.08 3.215 19.44  1
+## Hornet Sportabout 3.15 3.440 17.02  0
+##                   am gear carb new_cyl
+## Mazda RX4 Wag      1    4    4       6
+## Datsun 710         1    4    1       2
+## Hornet 4 Drive     0    3    1       6
+## Hornet Sportabout  0    3    2       8</code></pre>
 </div>
 <div class="cc">
 
@@ -191,17 +196,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb27-8" data-line-number="8">mtcars <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb27-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cyl =</span> </a>
 <a class="sourceLine" id="cb27-10" data-line-number="10">           <span class="kw">ifelse</span>(</a>
-<a class="sourceLine" id="cb27-11" data-line-number="11">             (<span class="kw">row_number</span>() <span class="op">%in%</span><span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">5</span> <span class="op">&amp;</span>cyl <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>), </a>
-<a class="sourceLine" id="cb27-12" data-line-number="12">             <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb27-13" data-line-number="13">             cyl)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb27-14" data-line-number="14"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs am gear carb
-## 1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
-## 2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
-## 3 22.8   2  108  93 3.85 2.320 18.61  1  1    4    1
-## 4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
-## 5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
-## 6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<a class="sourceLine" id="cb27-11" data-line-number="11">             (<span class="kw">row_number</span>() <span class="op">%in%</span><span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">5</span> <span class="op">&amp;</span></a>
+<a class="sourceLine" id="cb27-12" data-line-number="12"><span class="st">                </span>cyl <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>), </a>
+<a class="sourceLine" id="cb27-13" data-line-number="13">             <span class="dv">2</span>, </a>
+<a class="sourceLine" id="cb27-14" data-line-number="14">             cyl)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb27-15" data-line-number="15"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
+<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs
+## 1 21.0   6  160 110 3.90 2.620 16.46  0
+## 2 21.0   6  160 110 3.90 2.875 17.02  0
+## 3 22.8   2  108  93 3.85 2.320 18.61  1
+## 4 21.4   6  258 110 3.08 3.215 19.44  1
+## 5 18.7   8  360 175 3.15 3.440 17.02  0
+## 6 18.1   6  225 105 2.76 3.460 20.22  1
+##   am gear carb
+## 1  1    4    4
+## 2  1    4    4
+## 3  1    4    1
+## 4  0    3    1
+## 5  0    3    2
+## 6  0    3    1</code></pre>
 </div>
 <!--
 

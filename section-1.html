@@ -24,7 +24,7 @@
 <meta name="author" content="大鹏（编）" />
 
 
-<meta name="date" content="2019-08-18" />
+<meta name="date" content="2019-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -205,19 +205,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb4-7" data-line-number="7"><span class="st">  </span><span class="kw">transform</span>(<span class="dt">y =</span> z <span class="op">/</span><span class="st"> </span>x, <span class="dt">z =</span> <span class="kw">factor</span>(z)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-8" data-line-number="8"><span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span></a>
 <a class="sourceLine" id="cb4-9" data-line-number="9"><span class="st">  </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x, y, <span class="dt">color =</span> z)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), <span class="dt">expand =</span> F)</a></code></pre></div>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="st">  </span><span class="kw">coord_cartesian</span>(<span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>), </a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">                  <span class="dt">expand =</span> F)</a></code></pre></div>
 <p><img src="btcookbook_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># Or</span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">out &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>)), <span class="kw">aes</span>(x))</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {</a>
-<a class="sourceLine" id="cb5-5" data-line-number="5">  out =<span class="st"> </span>out <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> <span class="cf">function</span>(.x ,z) z<span class="op">/</span>.x, </a>
-<a class="sourceLine" id="cb5-7" data-line-number="7">                            <span class="dt">color =</span> i, </a>
-<a class="sourceLine" id="cb5-8" data-line-number="8">                            <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">z=</span>i),</a>
-<a class="sourceLine" id="cb5-9" data-line-number="9">                            <span class="dt">xlim=</span><span class="kw">c</span>(i<span class="op">/</span><span class="dv">10</span>,<span class="dv">10</span>) )</a>
-<a class="sourceLine" id="cb5-10" data-line-number="10">}</a>
-<a class="sourceLine" id="cb5-11" data-line-number="11">out</a></code></pre></div>
+<a class="sourceLine" id="cb5-2" data-line-number="2">out &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">10</span>)), </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">              <span class="kw">aes</span>(x))</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb5-5" data-line-number="5"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>) {</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">  out =<span class="st"> </span>out <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"><span class="st">    </span><span class="kw">stat_function</span>(</a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">      <span class="dt">fun =</span> <span class="cf">function</span>(.x ,z) z<span class="op">/</span>.x, </a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">      <span class="dt">color =</span> i, </a>
+<a class="sourceLine" id="cb5-10" data-line-number="10">      <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">z=</span>i),</a>
+<a class="sourceLine" id="cb5-11" data-line-number="11">      <span class="dt">xlim=</span><span class="kw">c</span>(i<span class="op">/</span><span class="dv">10</span>,<span class="dv">10</span>) )</a>
+<a class="sourceLine" id="cb5-12" data-line-number="12">}</a>
+<a class="sourceLine" id="cb5-13" data-line-number="13">out</a></code></pre></div>
 <p><img src="btcookbook_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
 </div>
 </div>

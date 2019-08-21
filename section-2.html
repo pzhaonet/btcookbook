@@ -24,7 +24,7 @@
 <meta name="author" content="大鹏（编）" />
 
 
-<meta name="date" content="2019-08-18" />
+<meta name="date" content="2019-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -170,16 +170,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="btcookbook_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="co"># or</span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2">myhist_log &lt;-<span class="st"> </span>myhist</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">myhist_log<span class="op">$</span>counts &lt;-<span class="st"> </span><span class="kw">log10</span>(myhist_log<span class="op">$</span>counts)</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="kw">plot</span>(myhist_log, <span class="dt">ylab =</span> <span class="st">&#39;log(Frequency)&#39;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb8-3" data-line-number="3">myhist_log<span class="op">$</span>counts &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw">log10</span>(myhist_log<span class="op">$</span>counts)</a>
+<a class="sourceLine" id="cb8-5" data-line-number="5"><span class="kw">plot</span>(myhist_log, <span class="dt">ylab =</span> <span class="st">&#39;log(Frequency)&#39;</span>)</a></code></pre></div>
 <p><img src="btcookbook_files/figure-html/unnamed-chunk-5-2.png" width="672" /></p>
 </div>
 <div class="cr">
 <p><strong>T 版</strong></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">ggplot</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(mydata), <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.5</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_log10</span>()</a></code></pre></div>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw">geom_histogram</span>(</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">    <span class="kw">aes</span>(mydata), </a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">    <span class="dt">breaks =</span> <span class="kw">seq</span>(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.5</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="st">  </span><span class="kw">scale_y_log10</span>()</a></code></pre></div>
 <p><img src="btcookbook_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 </div>

@@ -24,7 +24,7 @@
 <meta name="author" content="大鹏（编）" />
 
 
-<meta name="date" content="2019-08-18" />
+<meta name="date" content="2019-08-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -160,8 +160,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">3</span> 绘制地图</h1>
 <p><a href="https://d.cosx.org/d/420808">题目</a>：ggplot 绘制世界地图的基本方法是这样的：</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">require</span>(ggplot2)</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>), <span class="kw">aes</span>(long,lat,<span class="dt">group=</span>group)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_polygon</span>()</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">p</a></code></pre></div>
+<a class="sourceLine" id="cb10-2" data-line-number="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>), </a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">            <span class="kw">aes</span>(long,lat,<span class="dt">group=</span>group)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_polygon</span>()</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">p</a></code></pre></div>
 <p><img src="btcookbook_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>我想根据经纬度的范围来切出一块来，例如：</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">lr &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">140</span>, <span class="dv">120</span>)</a>
@@ -177,8 +179,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cl">
 <p><strong>N 版</strong></p>
 <p>使用 maps 包，用 <code>xlim</code> 和 <code>ylim</code> 指定范围即可。</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">maps<span class="op">::</span><span class="kw">map</span>(<span class="st">&quot;world&quot;</span>, <span class="dt">fill=</span><span class="ot">TRUE</span>, <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, </a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">          <span class="dt">bg=</span><span class="st">&quot;lightblue&quot;</span>, <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">140</span>, <span class="dv">120</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">maps<span class="op">::</span><span class="kw">map</span>(<span class="st">&quot;world&quot;</span>, </a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">          <span class="dt">fill=</span><span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">          <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, </a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">          <span class="dt">bg=</span><span class="st">&quot;lightblue&quot;</span>, </a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">          <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">140</span>, <span class="dv">120</span>))</a></code></pre></div>
 <p><img src="btcookbook_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div class="cc">
