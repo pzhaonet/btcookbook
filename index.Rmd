@@ -1,6 +1,6 @@
 --- 
 title: "TNT 擂台赛"
-subtitle: "Tidyverse vs. Non-Tidyverse: To be or not to be"
+subtitle: "Tidyverse vs. Non-Tidyverse: To be or Not To be"
 author: "大鹏（编）"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -12,6 +12,7 @@ github-repo: "pzhaonet/book-bt"
 
 
 ```{r include=FALSE}
+options(width = 40)
 knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FALSE)
 ```
 
@@ -95,17 +96,20 @@ expand.grid(
   transform(y = z / x, z = factor(z)) %>%
   ggplot() +
   geom_line(aes(x, y, color = z)) +
-  coord_cartesian(ylim = c(0, 10), expand = F)
+  coord_cartesian(ylim = c(0, 10), 
+                  expand = F)
 
 # Or
-out <- ggplot(data.frame(x = c(0, 10)), aes(x))
+out <- ggplot(data.frame(x = c(0, 10)), 
+              aes(x))
 
 for (i in 1:4) {
   out = out + 
-    stat_function(fun = function(.x ,z) z/.x, 
-                            color = i, 
-                            args = list(z=i),
-                            xlim=c(i/10,10) )
+    stat_function(
+      fun = function(.x ,z) z/.x, 
+      color = i, 
+      args = list(z=i),
+      xlim=c(i/10,10) )
 }
 out
 ```
@@ -134,7 +138,8 @@ plot(myhist$mids, myhist$counts,
 
 # or
 myhist_log <- myhist
-myhist_log$counts <- log10(myhist_log$counts)
+myhist_log$counts <- 
+  log10(myhist_log$counts)
 plot(myhist_log, ylab = 'log(Frequency)')
 ```
 
@@ -147,7 +152,9 @@ plot(myhist_log, ylab = 'log(Frequency)')
 ```{r}
 library(ggplot2)
 ggplot() + 
-  geom_histogram(aes(mydata), breaks = seq(-2, 2, 0.5)) + 
+  geom_histogram(
+    aes(mydata), 
+    breaks = seq(-2, 2, 0.5)) + 
   scale_y_log10()
 ```
 
@@ -159,7 +166,9 @@ ggplot() +
 
 ```{r}
 require(ggplot2)
-p <- ggplot(map_data("world"), aes(long,lat,group=group)) + geom_polygon()
+p <- ggplot(map_data("world"), 
+            aes(long,lat,group=group)) + 
+  geom_polygon()
 p
 ```
 
@@ -191,8 +200,11 @@ SO 上[类似的讨论](https://stackoverflow.com/questions/23652711/why-does-co
 
 使用 maps 包，用 `xlim` 和 `ylim` 指定范围即可。
 ```{r}
-maps::map("world", fill=TRUE, col="white", 
-          bg="lightblue", xlim = c(-140, 120))
+maps::map("world", 
+          fill=TRUE, 
+          col="white", 
+          bg="lightblue", 
+          xlim = c(-140, 120))
 ```
 
 
@@ -244,7 +256,8 @@ x <- c('2019-06-30 21:44:44', '2019-06-30 21:32:29', '2019-06-30 12:14:25')
 
 
 ```{r}
-y <- strptime(x, format = '%Y-%m-%d %H:%M:%S')
+y <- strptime(x,
+              format = '%Y-%m-%d %H:%M:%S')
 format(y, '%Y')
 format(y, '%m')
 ```
@@ -302,7 +315,8 @@ m1 <- mtcars %>%
 mtcars %>%
   mutate(cyl = 
            ifelse(
-             (row_number() %in% 2:5 &cyl < 6), 
+             (row_number() %in% 2:5 &
+                cyl < 6), 
              2, 
              cyl)) %>%
   head()
