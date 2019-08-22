@@ -279,6 +279,57 @@ lubridate::month(x)
 
 :::
 
+# 从字符串里提取数字并做后续运算
+
+[题目](https://d.cosx.org/d/420859/)：我的数据中某些列含有2L,3ND这种数字和字母的组合：
+
+```{r}
+dd <- data.frame(num = c("2L","3ND",66), stringsAsFactors = FALSE)
+```
+
+需要把字母去掉，然后剩下的数字除以2（2L变为2，然后除以2，3ND变为3，然后除以2，不含L或者ND的数字保持不变）。
+
+:::cl
+
+**N 版**
+
+```{r}
+dd_n <- as.numeric(gsub('[a-zA-Z]+', 
+                        '', 
+                        dd[, 1]))
+dd_m <- ifelse(grepl('[a-zA-Z]+', 
+                     dd[, 1]), 
+               5, 
+               1)
+dd_n/dd_m
+```
+
+:::
+
+:::cc
+
+:::
+
+:::cr
+
+**T 版**
+
+```{r}
+library(tidyverse)
+dd1 <- separate(dd, num, 
+                sep = "[:upper:]", 
+                into = c("num", "letter"))
+dd1$num <- as.numeric(dd1$num)
+for (i in 1:length(dd1$num))
+if (is.na(dd1$letter[i])) {
+        dd1$num[i] = dd1$num[i] 
+} else {dd1$num[i] = dd1$num[i] / 5}
+dd <- dd1[1]
+dd
+```
+
+:::
+
 # 数据框筛选重写
 
 [题目](https://d.cosx.org/d/420762)：数据框 mtcars，对满足某些条件比如行 2 到 5、列为 'cyl' 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。
