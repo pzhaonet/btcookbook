@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 数据框筛选重写 | TNT 擂台赛</title>
-  <meta name="description" content="5 数据框筛选重写 | TNT 擂台赛" />
-  <meta name="generator" content="bookdown 0.12.2 and GitBook 2.6.7" />
+  <title>5 从字符串里提取数字并做后续运算 | TNT 擂台赛</title>
+  <meta name="description" content="5 从字符串里提取数字并做后续运算 | TNT 擂台赛" />
+  <meta name="generator" content="bookdown 0.13.1 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 数据框筛选重写 | TNT 擂台赛" />
+  <meta property="og:title" content="5 从字符串里提取数字并做后续运算 | TNT 擂台赛" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="pzhaonet/book-bt" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 数据框筛选重写 | TNT 擂台赛" />
+  <meta name="twitter:title" content="5 从字符串里提取数字并做后续运算 | TNT 擂台赛" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="大鹏（编）" />
 
 
-<meta name="date" content="2019-08-21" />
+<meta name="date" content="2019-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="section-4.html"/>
-<link rel="next" href="backmatter.html"/>
+<link rel="next" href="section-6.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -135,7 +135,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i><b>2</b> 直方图的对数坐标</a></li>
 <li class="chapter" data-level="3" data-path="section-3.html"><a href="section-3.html"><i class="fa fa-check"></i><b>3</b> 绘制地图</a></li>
 <li class="chapter" data-level="4" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>4</b> 从字符串里提取年和月</a></li>
-<li class="chapter" data-level="5" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>5</b> 数据框筛选重写</a></li>
+<li class="chapter" data-level="5" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>5</b> 从字符串里提取数字并做后续运算</a></li>
+<li class="chapter" data-level="6" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i><b>6</b> 数据框筛选重写</a></li>
 <li class="chapter" data-level="" data-path="backmatter.html"><a href="backmatter.html"><i class="fa fa-check"></i>后记</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -157,92 +158,43 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="section-5" class="section level1">
-<h1><span class="header-section-number">5</span> 数据框筛选重写</h1>
-<p><a href="https://d.cosx.org/d/420762">题目</a>：数据框 mtcars，对满足某些条件比如行 2 到 5、列为 ‘cyl’ 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。</p>
+<h1><span class="header-section-number">5</span> 从字符串里提取数字并做后续运算</h1>
+<p><a href="https://d.cosx.org/d/420859/">题目</a>：我的数据中某些列含有2L,3ND这种数字和字母的组合：</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">dd &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">num =</span> <span class="kw">c</span>(<span class="st">&quot;2L&quot;</span>,<span class="st">&quot;3ND&quot;</span>,<span class="dv">66</span>), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>需要把字母去掉，然后剩下的数字除以2（2L变为2，然后除以2，3ND变为3，然后除以2，不含L或者ND的数字保持不变）。</p>
 <div class="cl">
 <p><strong>N 版</strong></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">mtcars<span class="op">$</span>cyl[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>][mtcars<span class="op">$</span>cyl[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">2</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="co"># or</span></a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="kw">transform</span>(mtcars[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>,], </a>
-<a class="sourceLine" id="cb25-4" data-line-number="4">          <span class="dt">new_cyl =</span> <span class="kw">ifelse</span>(cyl <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>, <span class="dv">2</span>, cyl))</a></code></pre></div>
-<pre><code>##                    mpg cyl disp  hp
-## Mazda RX4 Wag     21.0   6  160 110
-## Datsun 710        22.8   2  108  93
-## Hornet 4 Drive    21.4   6  258 110
-## Hornet Sportabout 18.7   8  360 175
-##                   drat    wt  qsec vs
-## Mazda RX4 Wag     3.90 2.875 17.02  0
-## Datsun 710        3.85 2.320 18.61  1
-## Hornet 4 Drive    3.08 3.215 19.44  1
-## Hornet Sportabout 3.15 3.440 17.02  0
-##                   am gear carb new_cyl
-## Mazda RX4 Wag      1    4    4       6
-## Datsun 710         1    4    1       2
-## Hornet 4 Drive     0    3    1       6
-## Hornet Sportabout  0    3    2       8</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">dd_n &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">gsub</span>(<span class="st">&#39;[a-zA-Z]+&#39;</span>, </a>
+<a class="sourceLine" id="cb26-2" data-line-number="2">                        <span class="st">&#39;&#39;</span>, </a>
+<a class="sourceLine" id="cb26-3" data-line-number="3">                        dd[, <span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb26-4" data-line-number="4">dd_m &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&#39;[a-zA-Z]+&#39;</span>, </a>
+<a class="sourceLine" id="cb26-5" data-line-number="5">                     dd[, <span class="dv">1</span>]), </a>
+<a class="sourceLine" id="cb26-6" data-line-number="6">               <span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb26-7" data-line-number="7">               <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb26-8" data-line-number="8">dd_n<span class="op">/</span>dd_m</a></code></pre></div>
+<pre><code>## [1]  0.4  0.6 66.0</code></pre>
 </div>
 <div class="cc">
 
 </div>
 <div class="cr">
 <p><strong>T 版</strong></p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1"><span class="kw">library</span>(dplyr)</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">m1 &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">row_number</span>() <span class="op">%in%</span><span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">5</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="st">  </span><span class="kw">mutate_at</span>(<span class="kw">vars</span>(cyl), </a>
-<a class="sourceLine" id="cb27-5" data-line-number="5">            <span class="op">~</span><span class="st"> </span><span class="kw">ifelse</span>(. <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>, . &lt;-<span class="st"> </span><span class="dv">2</span>, . &lt;-<span class="st"> </span><span class="dv">6</span>))</a>
-<a class="sourceLine" id="cb27-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb27-7" data-line-number="7"><span class="co"># or</span></a>
-<a class="sourceLine" id="cb27-8" data-line-number="8">mtcars <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb27-9" data-line-number="9"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">cyl =</span> </a>
-<a class="sourceLine" id="cb27-10" data-line-number="10">           <span class="kw">ifelse</span>(</a>
-<a class="sourceLine" id="cb27-11" data-line-number="11">             (<span class="kw">row_number</span>() <span class="op">%in%</span><span class="st"> </span><span class="dv">2</span><span class="op">:</span><span class="dv">5</span> <span class="op">&amp;</span></a>
-<a class="sourceLine" id="cb27-12" data-line-number="12"><span class="st">                </span>cyl <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>), </a>
-<a class="sourceLine" id="cb27-13" data-line-number="13">             <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb27-14" data-line-number="14">             cyl)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb27-15" data-line-number="15"><span class="st">  </span><span class="kw">head</span>()</a></code></pre></div>
-<pre><code>##    mpg cyl disp  hp drat    wt  qsec vs
-## 1 21.0   6  160 110 3.90 2.620 16.46  0
-## 2 21.0   6  160 110 3.90 2.875 17.02  0
-## 3 22.8   2  108  93 3.85 2.320 18.61  1
-## 4 21.4   6  258 110 3.08 3.215 19.44  1
-## 5 18.7   8  360 175 3.15 3.440 17.02  0
-## 6 18.1   6  225 105 2.76 3.460 20.22  1
-##   am gear carb
-## 1  1    4    4
-## 2  1    4    4
-## 3  1    4    1
-## 4  0    3    1
-## 5  0    3    2
-## 6  0    3    1</code></pre>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">dd1 &lt;-<span class="st"> </span><span class="kw">separate</span>(dd, num, </a>
+<a class="sourceLine" id="cb28-3" data-line-number="3">                <span class="dt">sep =</span> <span class="st">&quot;[:upper:]&quot;</span>, </a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">                <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;num&quot;</span>, <span class="st">&quot;letter&quot;</span>))</a>
+<a class="sourceLine" id="cb28-5" data-line-number="5">dd1<span class="op">$</span>num &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(dd1<span class="op">$</span>num)</a>
+<a class="sourceLine" id="cb28-6" data-line-number="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dd1<span class="op">$</span>num))</a>
+<a class="sourceLine" id="cb28-7" data-line-number="7"><span class="cf">if</span> (<span class="kw">is.na</span>(dd1<span class="op">$</span>letter[i])) {</a>
+<a class="sourceLine" id="cb28-8" data-line-number="8">        dd1<span class="op">$</span>num[i] =<span class="st"> </span>dd1<span class="op">$</span>num[i] </a>
+<a class="sourceLine" id="cb28-9" data-line-number="9">} <span class="cf">else</span> {dd1<span class="op">$</span>num[i] =<span class="st"> </span>dd1<span class="op">$</span>num[i] <span class="op">/</span><span class="st"> </span><span class="dv">5</span>}</a>
+<a class="sourceLine" id="cb28-10" data-line-number="10">dd &lt;-<span class="st"> </span>dd1[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb28-11" data-line-number="11">dd</a></code></pre></div>
+<pre><code>##    num
+## 1  0.4
+## 2  0.6
+## 3 66.0</code></pre>
 </div>
-<!--
-
-# Title
-
-[题目](https://d.cosx.org/d/420762)：
-
-:::cl
-
-**N 版**
-
-
-
-:::
-
-:::cc
-
-:::
-
-:::cr
-
-**T 版**
-
-
-
-:::
-
--->
 </div>
             </section>
 
@@ -250,7 +202,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="section-4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="backmatter.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="section-6.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
