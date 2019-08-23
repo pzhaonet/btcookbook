@@ -24,7 +24,7 @@
 <meta name="author" content="大鹏（编）" />
 
 
-<meta name="date" content="2019-08-22" />
+<meta name="date" content="2019-08-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -159,7 +159,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="section-6" class="section level1">
 <h1><span class="header-section-number">6</span> 数据框筛选重写</h1>
-<p><a href="https://d.cosx.org/d/420762">题目</a>：数据框 mtcars，对满足某些条件比如行 2 到 5、列为 ‘cyl’ 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。</p>
+<p><a href="https://d.cosx.org/d/420762">题目</a>：数据框 mtcars，对满足某些条件比如行 2 到 5、列为 ‘cyl’ 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。（<a href="https://d.cosx.org/d/420869">类似题目</a>）</p>
 <div class="cl">
 <p><strong>N 版</strong></p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">mtcars<span class="op">$</span>cyl[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>][mtcars<span class="op">$</span>cyl[<span class="dv">2</span><span class="op">:</span><span class="dv">5</span>] <span class="op">&lt;</span><span class="st"> </span><span class="dv">6</span>] &lt;-<span class="st"> </span><span class="dv">2</span></a>
