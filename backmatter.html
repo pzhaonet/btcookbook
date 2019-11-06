@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>后记1 | TNT 擂台赛</title>
   <meta name="description" content="后记1 | TNT 擂台赛" />
-  <meta name="generator" content="bookdown 0.13.1 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.14.1 and GitBook 2.6.7" />
 
   <meta property="og:title" content="后记1 | TNT 擂台赛" />
   <meta property="og:type" content="book" />
@@ -24,14 +24,14 @@
 <meta name="author" content="大鹏（编）" />
 
 
-<meta name="date" content="2019-08-23" />
+<meta name="date" content="2019-11-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="section-6.html"/>
+<link rel="prev" href="数据框筛选重写.html"/>
 
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -40,6 +40,9 @@
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
 
 
 
@@ -131,12 +134,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>序言</a></li>
-<li class="chapter" data-level="1" data-path="section-1.html"><a href="section-1.html"><i class="fa fa-check"></i><b>1</b> 曲线簇</a></li>
-<li class="chapter" data-level="2" data-path="section-2.html"><a href="section-2.html"><i class="fa fa-check"></i><b>2</b> 直方图的对数坐标</a></li>
-<li class="chapter" data-level="3" data-path="section-3.html"><a href="section-3.html"><i class="fa fa-check"></i><b>3</b> 绘制地图</a></li>
-<li class="chapter" data-level="4" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>4</b> 从字符串里提取年和月</a></li>
-<li class="chapter" data-level="5" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>5</b> 从字符串里提取数字并做后续运算</a></li>
-<li class="chapter" data-level="6" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i><b>6</b> 数据框筛选重写</a></li>
+<li class="chapter" data-level="1" data-path="曲线簇.html"><a href="曲线簇.html"><i class="fa fa-check"></i><b>1</b> 曲线簇</a></li>
+<li class="chapter" data-level="2" data-path="直方图的对数坐标.html"><a href="直方图的对数坐标.html"><i class="fa fa-check"></i><b>2</b> 直方图的对数坐标</a></li>
+<li class="chapter" data-level="3" data-path="绘制地图.html"><a href="绘制地图.html"><i class="fa fa-check"></i><b>3</b> 绘制地图</a></li>
+<li class="chapter" data-level="4" data-path="从字符串里提取年和月.html"><a href="从字符串里提取年和月.html"><i class="fa fa-check"></i><b>4</b> 从字符串里提取年和月</a></li>
+<li class="chapter" data-level="5" data-path="将持续天数转换成每天出现频次.html"><a href="将持续天数转换成每天出现频次.html"><i class="fa fa-check"></i><b>5</b> 将持续天数转换成每天出现频次</a></li>
+<li class="chapter" data-level="6" data-path="从字符串里提取数字并做后续运算.html"><a href="从字符串里提取数字并做后续运算.html"><i class="fa fa-check"></i><b>6</b> 从字符串里提取数字并做后续运算</a></li>
+<li class="chapter" data-level="7" data-path="数据框筛选重写.html"><a href="数据框筛选重写.html"><i class="fa fa-check"></i><b>7</b> 数据框筛选重写</a></li>
 <li class="chapter" data-level="" data-path="backmatter.html"><a href="backmatter.html"><i class="fa fa-check"></i>后记</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -251,30 +255,30 @@ ggplot(data = diamonds) +
           </div>
         </div>
       </div>
-<a href="section-6.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="数据框筛选重写.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
 <script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
 <script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
-"github": false,
 "facebook": true,
 "twitter": true,
-"google": false,
 "linkedin": false,
 "weibo": false,
 "instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
