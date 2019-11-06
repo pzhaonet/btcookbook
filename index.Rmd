@@ -279,6 +279,71 @@ lubridate::month(x)
 
 :::
 
+
+
+# 将持续天数转换成每天出现频次 
+
+[题目](https://d.cosx.org/d/420996)：
+
+有数据框:
+
+```{r}
+date_df <- data.frame(start = c("06-01", "06-02", "06-03", "06-04", "06-04"), 
+                      duration = c(4, 3, 1, 1, 0), stringsAsFactors=FALSE)
+```
+
+`start` 列是日期，`duration` 列是从该日期天开始持续的天数。我想最后求得每天出现的频次是多少。
+
+:::cl
+
+**N 版**
+
+```{r}
+# 识别日期：
+date_df$ystart <- as.Date(
+  paste0('2019-', date_df$start))
+# 生成所有日期：
+date_ls <- mapply(
+  function(x1, x2) 
+    format(
+      seq(from = x1, length.out = x2, by = 1), 
+      '%m-%d'), 
+  date_df$ystart, date_df$duration)
+# 统计频次：
+table(unlist(date_ls))
+
+```
+
+:::
+
+:::cc
+
+:::
+
+:::cr
+
+**T 版**
+
+```{r}
+library(lubridate)
+get_series = function(start, duration){
+  start= as_datetime(start, format="%m-%d")
+  end = start + days(duration)
+  return(seq(start, end, by="1 day"))
+}
+
+rslt = lapply(1:nrow(date_df), function(i){
+  rslt = get_series(date_df$start[i], 
+                    date_df$duration[i])
+  rslt=as.character(rslt)
+  return(rslt)
+})
+
+table(unlist(rslt))
+```
+
+:::
+
 # 从字符串里提取数字并做后续运算
 
 [题目](https://d.cosx.org/d/420859/)：我的数据中某些列含有2L,3ND这种数字和字母的组合：
