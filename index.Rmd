@@ -291,9 +291,10 @@ axis(1, at = barplot_car, labels = df.o$car, las = 2)
 **T 版**
 
 ```{r}
+require(ggplot2)
+require(dplyr)
 df.sort = df %>% 
   arrange(mpg)
-
 df.sort %>% 
   ggplot(aes(x=car,y=mpg,fill=cyl))+
   geom_col()+
