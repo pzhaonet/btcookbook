@@ -243,6 +243,70 @@ p + coord_quickmap(xlim = lr)
 :::
 
 
+
+# 柱状图的边框
+
+[题目](https://d.cosx.org/d/421117)：
+
+
+下图来自Economisit：
+
+![](https://www.economist.com/sites/default/files/imagecache/640-width/images/2019/12/articles/main/20191207_woc950.png)
+
+请问，如何在柱状图里指定的某些柱子上显示边框？
+
+
+```{r}
+# 准备数据
+df = mtcars
+df$car = rownames(mtcars)
+cl_red <- c(2, 4, 6)
+
+```
+
+:::cl
+
+**N 版**
+
+```{r}
+df.o <- df[order(df[,1]), ]
+df.o$bd <- "NA"
+df.o$bd[cl_red] <- "red"
+par(mar = c(12, 4, 1, 1), las = 1)
+barplot_car <- barplot(df.o$mpg, border = df.o$bd, col = df.o$cyl, ylab = 'mpg', main = 'Miles per gallon')
+legend('topleft', legend = unique(df.o$cyl), fill = unique(df.o$cyl), title = 'cyl', border = NA, bty = 'n')
+text(x = barplot_car[cl_red], y = df.o$mpg[cl_red], labels = df.o$hp[cl_red])
+mtext('car', 1, 8)
+axis(1, at = barplot_car, labels = df.o$car, las = 2)
+```
+
+:::
+
+:::cc
+
+:::
+
+:::cr
+
+**T 版**
+
+```{r}
+df.sort = df %>% 
+  arrange(mpg)
+
+df.sort %>% 
+  ggplot(aes(x=car,y=mpg,fill=cyl))+
+  geom_col()+
+  geom_col(data= df.sort[cl_red,], color="red", size=1)+
+  geom_text(data= df.sort[cl_red,], aes(label=hp))+
+  scale_x_discrete(limits= df.sort$car) +
+  theme_classic()+
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+  ggtitle("Miles per gallon")
+```
+
+:::
+
 # 从字符串里提取年和月
 
 [题目](https://d.cosx.org/d/420854)：部分数据集展示如下，我现在能想到的分离办法就是写正则表达式，还有没有更方便的办法？
