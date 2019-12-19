@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
 <head>
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5 将持续天数转换成每天出现频次 | TNT 擂台赛</title>
-  <meta name="description" content="5 将持续天数转换成每天出现频次 | TNT 擂台赛" />
-  <meta name="generator" content="bookdown 0.14.1 and GitBook 2.6.7" />
+  <title>6 将持续天数转换成每天出现频次 | TNT 擂台赛</title>
+  <meta name="description" content="6 将持续天数转换成每天出现频次 | TNT 擂台赛" />
+  <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5 将持续天数转换成每天出现频次 | TNT 擂台赛" />
+  <meta property="og:title" content="6 将持续天数转换成每天出现频次 | TNT 擂台赛" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="pzhaonet/book-bt" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5 将持续天数转换成每天出现频次 | TNT 擂台赛" />
+  <meta name="twitter:title" content="6 将持续天数转换成每天出现频次 | TNT 擂台赛" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="大鹏（编）" />
 
 
-<meta name="date" content="2019-11-06" />
+<meta name="date" content="2019-12-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -137,10 +137,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1" data-path="曲线簇.html"><a href="曲线簇.html"><i class="fa fa-check"></i><b>1</b> 曲线簇</a></li>
 <li class="chapter" data-level="2" data-path="直方图的对数坐标.html"><a href="直方图的对数坐标.html"><i class="fa fa-check"></i><b>2</b> 直方图的对数坐标</a></li>
 <li class="chapter" data-level="3" data-path="绘制地图.html"><a href="绘制地图.html"><i class="fa fa-check"></i><b>3</b> 绘制地图</a></li>
-<li class="chapter" data-level="4" data-path="从字符串里提取年和月.html"><a href="从字符串里提取年和月.html"><i class="fa fa-check"></i><b>4</b> 从字符串里提取年和月</a></li>
-<li class="chapter" data-level="5" data-path="将持续天数转换成每天出现频次.html"><a href="将持续天数转换成每天出现频次.html"><i class="fa fa-check"></i><b>5</b> 将持续天数转换成每天出现频次</a></li>
-<li class="chapter" data-level="6" data-path="从字符串里提取数字并做后续运算.html"><a href="从字符串里提取数字并做后续运算.html"><i class="fa fa-check"></i><b>6</b> 从字符串里提取数字并做后续运算</a></li>
-<li class="chapter" data-level="7" data-path="数据框筛选重写.html"><a href="数据框筛选重写.html"><i class="fa fa-check"></i><b>7</b> 数据框筛选重写</a></li>
+<li class="chapter" data-level="4" data-path="柱状图的边框.html"><a href="柱状图的边框.html"><i class="fa fa-check"></i><b>4</b> 柱状图的边框</a></li>
+<li class="chapter" data-level="5" data-path="从字符串里提取年和月.html"><a href="从字符串里提取年和月.html"><i class="fa fa-check"></i><b>5</b> 从字符串里提取年和月</a></li>
+<li class="chapter" data-level="6" data-path="将持续天数转换成每天出现频次.html"><a href="将持续天数转换成每天出现频次.html"><i class="fa fa-check"></i><b>6</b> 将持续天数转换成每天出现频次</a></li>
+<li class="chapter" data-level="7" data-path="从字符串里提取数字并做后续运算.html"><a href="从字符串里提取数字并做后续运算.html"><i class="fa fa-check"></i><b>7</b> 从字符串里提取数字并做后续运算</a></li>
+<li class="chapter" data-level="8" data-path="数据框筛选重写.html"><a href="数据框筛选重写.html"><i class="fa fa-check"></i><b>8</b> 数据框筛选重写</a></li>
 <li class="chapter" data-level="" data-path="backmatter.html"><a href="backmatter.html"><i class="fa fa-check"></i>后记</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -162,26 +163,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="将持续天数转换成每天出现频次" class="section level1">
-<h1><span class="header-section-number">5</span> 将持续天数转换成每天出现频次</h1>
+<h1><span class="header-section-number">6</span> 将持续天数转换成每天出现频次</h1>
 <p><a href="https://d.cosx.org/d/420996">题目</a>：</p>
 <p>有数据框:</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">date_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">start =</span> <span class="kw">c</span>(<span class="st">&quot;06-01&quot;</span>, <span class="st">&quot;06-02&quot;</span>, <span class="st">&quot;06-03&quot;</span>, <span class="st">&quot;06-04&quot;</span>, <span class="st">&quot;06-04&quot;</span>), </a>
-<a class="sourceLine" id="cb25-2" data-line-number="2">                      <span class="dt">duration =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">date_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">start =</span> <span class="kw">c</span>(<span class="st">&quot;06-01&quot;</span>, <span class="st">&quot;06-02&quot;</span>, <span class="st">&quot;06-03&quot;</span>, <span class="st">&quot;06-04&quot;</span>, <span class="st">&quot;06-04&quot;</span>), </a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">                      <span class="dt">duration =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
 <p><code>start</code> 列是日期，<code>duration</code> 列是从该日期天开始持续的天数。我想最后求得每天出现的频次是多少。</p>
 <div class="cl">
 <p><strong>N 版</strong></p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1"><span class="co"># 识别日期：</span></a>
-<a class="sourceLine" id="cb26-2" data-line-number="2">date_df<span class="op">$</span>ystart &lt;-<span class="st"> </span><span class="kw">as.Date</span>(</a>
-<a class="sourceLine" id="cb26-3" data-line-number="3">  <span class="kw">paste0</span>(<span class="st">&#39;2019-&#39;</span>, date_df<span class="op">$</span>start))</a>
-<a class="sourceLine" id="cb26-4" data-line-number="4"><span class="co"># 生成所有日期：</span></a>
-<a class="sourceLine" id="cb26-5" data-line-number="5">date_ls &lt;-<span class="st"> </span><span class="kw">mapply</span>(</a>
-<a class="sourceLine" id="cb26-6" data-line-number="6">  <span class="cf">function</span>(x1, x2) </a>
-<a class="sourceLine" id="cb26-7" data-line-number="7">    <span class="kw">format</span>(</a>
-<a class="sourceLine" id="cb26-8" data-line-number="8">      <span class="kw">seq</span>(<span class="dt">from =</span> x1, <span class="dt">length.out =</span> x2, <span class="dt">by =</span> <span class="dv">1</span>), </a>
-<a class="sourceLine" id="cb26-9" data-line-number="9">      <span class="st">&#39;%m-%d&#39;</span>), </a>
-<a class="sourceLine" id="cb26-10" data-line-number="10">  date_df<span class="op">$</span>ystart, date_df<span class="op">$</span>duration)</a>
-<a class="sourceLine" id="cb26-11" data-line-number="11"><span class="co"># 统计频次：</span></a>
-<a class="sourceLine" id="cb26-12" data-line-number="12"><span class="kw">table</span>(<span class="kw">unlist</span>(date_ls))</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># 识别日期：</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">date_df<span class="op">$</span>ystart &lt;-<span class="st"> </span><span class="kw">as.Date</span>(</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">  <span class="kw">paste0</span>(<span class="st">&#39;2019-&#39;</span>, date_df<span class="op">$</span>start))</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="co"># 生成所有日期：</span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">date_ls &lt;-<span class="st"> </span><span class="kw">mapply</span>(</a>
+<a class="sourceLine" id="cb29-6" data-line-number="6">  <span class="cf">function</span>(x1, x2) </a>
+<a class="sourceLine" id="cb29-7" data-line-number="7">    <span class="kw">format</span>(</a>
+<a class="sourceLine" id="cb29-8" data-line-number="8">      <span class="kw">seq</span>(<span class="dt">from =</span> x1, <span class="dt">length.out =</span> x2, <span class="dt">by =</span> <span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb29-9" data-line-number="9">      <span class="st">&#39;%m-%d&#39;</span>), </a>
+<a class="sourceLine" id="cb29-10" data-line-number="10">  date_df<span class="op">$</span>ystart, date_df<span class="op">$</span>duration)</a>
+<a class="sourceLine" id="cb29-11" data-line-number="11"><span class="co"># 统计频次：</span></a>
+<a class="sourceLine" id="cb29-12" data-line-number="12"><span class="kw">table</span>(<span class="kw">unlist</span>(date_ls))</a></code></pre></div>
 <pre><code>## 
 ## 06-01 06-02 06-03 06-04 
 ##     1     2     3     3</code></pre>
@@ -191,21 +192,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cr">
 <p><strong>T 版</strong></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">library</span>(lubridate)</a>
-<a class="sourceLine" id="cb28-2" data-line-number="2">get_series =<span class="st"> </span><span class="cf">function</span>(start, duration){</a>
-<a class="sourceLine" id="cb28-3" data-line-number="3">  start=<span class="st"> </span><span class="kw">as_datetime</span>(start, <span class="dt">format=</span><span class="st">&quot;%m-%d&quot;</span>)</a>
-<a class="sourceLine" id="cb28-4" data-line-number="4">  end =<span class="st"> </span>start <span class="op">+</span><span class="st"> </span><span class="kw">days</span>(duration)</a>
-<a class="sourceLine" id="cb28-5" data-line-number="5">  <span class="kw">return</span>(<span class="kw">seq</span>(start, end, <span class="dt">by=</span><span class="st">&quot;1 day&quot;</span>))</a>
-<a class="sourceLine" id="cb28-6" data-line-number="6">}</a>
-<a class="sourceLine" id="cb28-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb28-8" data-line-number="8">rslt =<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(date_df), <span class="cf">function</span>(i){</a>
-<a class="sourceLine" id="cb28-9" data-line-number="9">  rslt =<span class="st"> </span><span class="kw">get_series</span>(date_df<span class="op">$</span>start[i], </a>
-<a class="sourceLine" id="cb28-10" data-line-number="10">                    date_df<span class="op">$</span>duration[i])</a>
-<a class="sourceLine" id="cb28-11" data-line-number="11">  rslt=<span class="kw">as.character</span>(rslt)</a>
-<a class="sourceLine" id="cb28-12" data-line-number="12">  <span class="kw">return</span>(rslt)</a>
-<a class="sourceLine" id="cb28-13" data-line-number="13">})</a>
-<a class="sourceLine" id="cb28-14" data-line-number="14"></a>
-<a class="sourceLine" id="cb28-15" data-line-number="15"><span class="kw">table</span>(<span class="kw">unlist</span>(rslt))</a></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">library</span>(lubridate)</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">get_series =<span class="st"> </span><span class="cf">function</span>(start, duration){</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">  start=<span class="st"> </span><span class="kw">as_datetime</span>(start, <span class="dt">format=</span><span class="st">&quot;%m-%d&quot;</span>)</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">  end =<span class="st"> </span>start <span class="op">+</span><span class="st"> </span><span class="kw">days</span>(duration)</a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">  <span class="kw">return</span>(<span class="kw">seq</span>(start, end, <span class="dt">by=</span><span class="st">&quot;1 day&quot;</span>))</a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb31-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb31-8" data-line-number="8">rslt =<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(date_df), <span class="cf">function</span>(i){</a>
+<a class="sourceLine" id="cb31-9" data-line-number="9">  rslt =<span class="st"> </span><span class="kw">get_series</span>(date_df<span class="op">$</span>start[i], </a>
+<a class="sourceLine" id="cb31-10" data-line-number="10">                    date_df<span class="op">$</span>duration[i])</a>
+<a class="sourceLine" id="cb31-11" data-line-number="11">  rslt=<span class="kw">as.character</span>(rslt)</a>
+<a class="sourceLine" id="cb31-12" data-line-number="12">  <span class="kw">return</span>(rslt)</a>
+<a class="sourceLine" id="cb31-13" data-line-number="13">})</a>
+<a class="sourceLine" id="cb31-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb31-15" data-line-number="15"><span class="kw">table</span>(<span class="kw">unlist</span>(rslt))</a></code></pre></div>
 <pre><code>## 
 ## 2019-06-01 2019-06-02 2019-06-03 
 ##          1          2          3 
@@ -235,6 +236,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
 "sharing": {
+"github": false,
 "facebook": true,
 "twitter": true,
 "linkedin": false,
@@ -253,6 +255,10 @@ gitbook.start({
 "text": null
 },
 "history": {
+"link": null,
+"text": null
+},
+"view": {
 "link": null,
 "text": null
 },
