@@ -14,6 +14,12 @@ github-repo: "pzhaonet/book-bt"
 ```{r include=FALSE}
 options(width = 40)
 knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FALSE)
+ctb <- function(id, x) {
+  paste0("题目^[贡献者为 ", paste(paste0("[\\@", x, "](https://d.cosx.org/u/", x, ")"), collapse = " "),  " 等，来自 <https://d.cosx.org/d/", id, ">。]：")
+  }
+# ctb <- function(id, x) {
+#   paste0("Problem^[Contributed by ", paste(paste0("[\\@", x, "](https://d.cosx.org/u/", x, ")"), collapse = " "),  ". From <https://d.cosx.org/d/", id, ">.]: ")
+#   }
 ```
 
 # 序言 {-}
@@ -40,7 +46,8 @@ knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FAL
 
 # 曲线簇 {#d420766}
 
-[题目](https://d.cosx.org/d/420766)：函数 $xy = z$，$z$ 取值为 1、2、3、4， $x$ 和 $y$ 的取值区间为 (0, 10]，如何画出这4条曲线？
+`r ctb(420766, c("medo", "Liechi", "dapengde", "Cloud2016", "yihui", "albert-R"))`
+函数 $xy = z$，$z$ 取值为 1、2、3、4， $x$ 和 $y$ 的取值区间为 (0, 10]，如何画出这4条曲线？
 
 ::: cl
 
@@ -116,10 +123,13 @@ out
 
 :::
 
+::: clear
+:::
+
 # 直方图的对数坐标 {#d420798}
 
-[题目](https://d.cosx.org/d/420798)：如何绘制对数坐标的直方图？
-
+`r ctb(420798, c("tranquil", "dapengde", "Heterogeneity"))`
+如何绘制对数坐标的直方图？
 
 ```{r}
 # 准备数据
@@ -160,9 +170,14 @@ ggplot() +
 
 :::
 
+::: clear
+:::
+
+
 # 绘制地图 {#d420808}
 
-[题目](https://d.cosx.org/d/420808)：ggplot 绘制世界地图的基本方法是这样的：
+`r ctb(420808, c("dapengde", "Cloud2016"))`
+ggplot 绘制世界地图的基本方法是这样的：
 
 ```{r}
 require(ggplot2)
@@ -242,13 +257,13 @@ p + coord_quickmap(xlim = lr)
 
 :::
 
+::: clear
+:::
 
 
 # 柱状图的边框 {#d421117}
 
-[题目](https://d.cosx.org/d/421117)：
-
-
+`r ctb(421117, c("seeyou14", "tctcab", "Liechi"))`
 下图来自Economisit：
 
 ![](https://www.economist.com/sites/default/files/imagecache/640-width/images/2019/12/articles/main/20191207_woc950.png)
@@ -319,9 +334,13 @@ df.sort %>%
 
 :::
 
+::: clear
+:::
+
 # 从字符串里提取年和月 {#d420854}
 
-[题目](https://d.cosx.org/d/420854)：部分数据集展示如下，我现在能想到的分离办法就是写正则表达式，还有没有更方便的办法？
+`r ctb(420854, c("Cloud2016", "dapengde", "xieshichen"))`
+部分数据集展示如下，我现在能想到的分离办法就是写正则表达式，还有没有更方便的办法？
 
 ```{r}
 x <- c('2019-06-30 21:44:44', '2019-06-30 21:32:29', '2019-06-30 12:14:25')
@@ -356,11 +375,22 @@ lubridate::month(x)
 :::
 
 
+::: clear
+:::
+
+另有 **data.table** 版：
+
+```{r}
+library(data.table)
+x_df <- data.frame(x = x)
+setDT(x_df)[, `:=`(y = year(x), m=month(x))]
+x_df
+```
+
 
 # 将持续天数转换成每天出现频次 {#d420996}
 
-[题目](https://d.cosx.org/d/420996)：
-
+`r ctb(420996, c("Tzhu", "tctcab", "dapengde", "hzxsccm678335"))`
 有数据框:
 
 ```{r}
@@ -420,9 +450,13 @@ table(unlist(rslt))
 
 :::
 
+::: clear
+:::
+
 # 从字符串里提取数字并做后续运算 {#d420859}
 
-[题目](https://d.cosx.org/d/420859/)：我的数据中某些列含有2L,3ND这种数字和字母的组合：
+`r ctb(420859, c("wqssf", "Liechi", "dapengde"))`
+我的数据中某些列含有2L,3ND这种数字和字母的组合：
 
 ```{r}
 dd <- data.frame(num = c("2L","3ND",66), stringsAsFactors = FALSE)
@@ -471,9 +505,13 @@ dd
 
 :::
 
+::: clear
+:::
+
 # 数据框筛选重写 {#d420762}
 
-[题目](https://d.cosx.org/d/420762)：数据框 mtcars，对满足某些条件比如行 2 到 5、列为 'cyl' 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。（[类似题目](https://d.cosx.org/d/420869)）
+`r ctb(420762, c("Hoas", "Liechi", "tctcab", "yihui", "Cloud2016", "frankzhang210", "Heterogeneity"))`
+数据框 mtcars，对满足某些条件比如行 2 到 5、列为 'cyl' 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。（[类似题目](https://d.cosx.org/d/420869)）
 
 :::cl
 
@@ -512,14 +550,28 @@ mtcars %>%
              2, 
              cyl)) %>%
   head()
+
+# or
+
+mtcars[2:5, "cyl"] %<>% ifelse(.<6, 2, .)
 ```
 
 :::
 
+::: clear
+:::
+
+另有 **data.table**版：
+
+```{r}
+library(data.table)
+df <- as.data.table(mtcars)
+df[2:5,cyl:=.(ifelse(cyl<6,2,cyl))]
+```
+
 # 将数据框分组提取某列最大值并做后续操作 {#d421170}
 
-题目^[贡献者为[\@dhfly](https://d.cosx.org/u/dhfly) [\@dapengde](https://d.cosx.org/u/dhfly) [\@frankzhang21](https://d.cosx.org/u/dhfly) [\@zpmu](https://d.cosx.org/u/dhfly)，来自 <https://d.cosx.org/d/421170>]：
-
+`r ctb(421170, c("dhfly", "dapengde", "frankzhang21", "zpmu"))`
 有数据框：
 
 ```{r}
@@ -578,9 +630,8 @@ dt %>%
 
 :::
 
-<pre><code>
-
-</code></pre>
+::: clear
+:::
 
 另有 **data.table** 解决方案：
 
@@ -595,7 +646,7 @@ dt[,.SD[amount == max(amount), .(merged = paste0(date, "-", amount))], by = .(na
 
 # Title
 
-题目^[贡献者为[\@](https://d.cosx.org/u/)，来自 <https://d.cosx.org/d/420762>]：
+`ctb(c())`
 
 :::cl
 
@@ -621,7 +672,7 @@ dt[,.SD[amount == max(amount), .(merged = paste0(date, "-", amount))], by = .(na
 
 -->
 
-# 后记^[原载 openr.org，原标题为“当时尚有 R base，何事纷纷说 e”] {#backmatter .unnumbered}
+# 后记^[原载 openr.org，原标题为“当时尚有 R base，何事纷纷说 tidyverse”] {#backmatter .unnumbered}
 
 
 
