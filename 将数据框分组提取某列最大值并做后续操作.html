@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7 从字符串里提取数字并做后续运算 | TNT 擂台赛</title>
-  <meta name="description" content="7 从字符串里提取数字并做后续运算 | TNT 擂台赛" />
+  <title>9 将数据框分组提取某列最大值并做后续操作 | TNT 擂台赛</title>
+  <meta name="description" content="9 将数据框分组提取某列最大值并做后续操作 | TNT 擂台赛" />
   <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7 从字符串里提取数字并做后续运算 | TNT 擂台赛" />
+  <meta property="og:title" content="9 将数据框分组提取某列最大值并做后续操作 | TNT 擂台赛" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="pzhaonet/book-bt" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7 从字符串里提取数字并做后续运算 | TNT 擂台赛" />
+  <meta name="twitter:title" content="9 将数据框分组提取某列最大值并做后续操作 | TNT 擂台赛" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="将持续天数转换成每天出现频次.html"/>
-<link rel="next" href="数据框筛选重写.html"/>
+<link rel="prev" href="数据框筛选重写.html"/>
+<link rel="next" href="backmatter.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -163,52 +163,104 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="从字符串里提取数字并做后续运算" class="section level1">
-<h1><span class="header-section-number">7</span> 从字符串里提取数字并做后续运算</h1>
-<p><a href="https://d.cosx.org/d/420859/">题目</a>：我的数据中某些列含有2L,3ND这种数字和字母的组合：</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">dd &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">num =</span> <span class="kw">c</span>(<span class="st">&quot;2L&quot;</span>,<span class="st">&quot;3ND&quot;</span>,<span class="dv">66</span>), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
-<p>需要把字母去掉，然后剩下的数字除以2（2L变为2，然后除以2，3ND变为3，然后除以2，不含L或者ND的数字保持不变）。</p>
+<div id="将数据框分组提取某列最大值并做后续操作" class="section level1">
+<h1><span class="header-section-number">9</span> 将数据框分组提取某列最大值并做后续操作</h1>
+<p>题目<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>：</p>
+<p>有数据框：</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="co"># 源数据</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">c1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">2015</span>, <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">c2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">2016</span>, <span class="dv">400</span>)</a>
+<a class="sourceLine" id="cb42-4" data-line-number="4">c3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;b&#39;</span>, <span class="dv">2015</span>, <span class="dv">700</span>)</a>
+<a class="sourceLine" id="cb42-5" data-line-number="5">c4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;b&#39;</span>, <span class="dv">2016</span>, <span class="dv">600</span>)</a>
+<a class="sourceLine" id="cb42-6" data-line-number="6">dt &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rbind</span>(c1, c2, c3, c4), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb42-7" data-line-number="7"><span class="kw">names</span>(dt) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;name&#39;</span>, <span class="st">&#39;date&#39;</span>, <span class="st">&#39;amount&#39;</span>)</a>
+<a class="sourceLine" id="cb42-8" data-line-number="8">dt</a></code></pre></div>
+<pre><code>##    name date amount
+## c1    a 2015    300
+## c2    a 2016    400
+## c3    b 2015    700
+## c4    b 2016    600</code></pre>
+<p>其中，a 和 b 为客户名，amount 为金额，date 年份。欲挑选出每个客户金额的最大值和对应年份，并将对应的第二列和第三列合并，也就是想得到如下结果：</p>
+<pre><code>name   merged
+a      2016-400
+b      2015-700</code></pre>
+<p>该如何操作？</p>
 <div class="cl">
 <p><strong>N 版</strong></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">dd_n &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">gsub</span>(<span class="st">&#39;[a-zA-Z]+&#39;</span>, </a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">                        <span class="st">&#39;&#39;</span>, </a>
-<a class="sourceLine" id="cb34-3" data-line-number="3">                        dd[, <span class="dv">1</span>]))</a>
-<a class="sourceLine" id="cb34-4" data-line-number="4">dd_m &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&#39;[a-zA-Z]+&#39;</span>, </a>
-<a class="sourceLine" id="cb34-5" data-line-number="5">                     dd[, <span class="dv">1</span>]), </a>
-<a class="sourceLine" id="cb34-6" data-line-number="6">               <span class="dv">5</span>, </a>
-<a class="sourceLine" id="cb34-7" data-line-number="7">               <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb34-8" data-line-number="8">dd_n<span class="op">/</span>dd_m</a></code></pre></div>
-<pre><code>## [1]  0.4  0.6 66.0</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">dt<span class="op">$</span>merged &lt;-<span class="st"> </span><span class="kw">paste0</span>(dt<span class="op">$</span>date, <span class="st">&#39;-&#39;</span>, dt<span class="op">$</span>amount)</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">find_max &lt;-<span class="st">  </span><span class="cf">function</span>(x) </a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">  x[<span class="kw">which.max</span>(<span class="kw">substr</span>(x, <span class="dv">6</span>, <span class="kw">nchar</span>(x)))]</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">tb &lt;-<span class="st"> </span><span class="kw">tapply</span>(dt<span class="op">$</span>merged, dt<span class="op">$</span>name, find_max)</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="kw">names</span>(tb), <span class="dt">merged =</span> tb)</a></code></pre></div>
+<pre><code>##   name   merged
+## a    a 2016-400
+## b    b 2015-700</code></pre>
 </div>
 <div class="cc">
 
 </div>
 <div class="cr">
 <p><strong>T 版</strong></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2">dd1 &lt;-<span class="st"> </span><span class="kw">separate</span>(dd, num, </a>
-<a class="sourceLine" id="cb36-3" data-line-number="3">                <span class="dt">sep =</span> <span class="st">&quot;[:upper:]&quot;</span>, </a>
-<a class="sourceLine" id="cb36-4" data-line-number="4">                <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;num&quot;</span>, <span class="st">&quot;letter&quot;</span>))</a>
-<a class="sourceLine" id="cb36-5" data-line-number="5">dd1<span class="op">$</span>num &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(dd1<span class="op">$</span>num)</a>
-<a class="sourceLine" id="cb36-6" data-line-number="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dd1<span class="op">$</span>num))</a>
-<a class="sourceLine" id="cb36-7" data-line-number="7"><span class="cf">if</span> (<span class="kw">is.na</span>(dd1<span class="op">$</span>letter[i])) {</a>
-<a class="sourceLine" id="cb36-8" data-line-number="8">        dd1<span class="op">$</span>num[i] =<span class="st"> </span>dd1<span class="op">$</span>num[i] </a>
-<a class="sourceLine" id="cb36-9" data-line-number="9">} <span class="cf">else</span> {dd1<span class="op">$</span>num[i] =<span class="st"> </span>dd1<span class="op">$</span>num[i] <span class="op">/</span><span class="st"> </span><span class="dv">5</span>}</a>
-<a class="sourceLine" id="cb36-10" data-line-number="10">dd &lt;-<span class="st"> </span>dd1[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb36-11" data-line-number="11">dd</a></code></pre></div>
-<pre><code>##    num
-## 1  0.4
-## 2  0.6
-## 3 66.0</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(amount <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(amount)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">merged =</span> <span class="kw">paste</span>(date, amount, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-6" data-line-number="6"><span class="st">  </span><span class="kw">ungroup</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   name  date  amount merged  
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   
+## 1 a     2016  400    2016-400
+## 2 b     2015  700    2015-700</code></pre>
 </div>
+<p>另有 <strong>data.table</strong> 解决方案：</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">library</span>(data.table)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">setDT</span>(dt)</a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">dt[,.SD[amount <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(amount), .(<span class="dt">merged =</span> <span class="kw">paste0</span>(date, <span class="st">&quot;-&quot;</span>, amount))], by =<span class="st"> </span>.(name)]</a></code></pre></div>
+<pre><code>##    name   merged
+## 1:    a 2016-400
+## 2:    b 2015-700</code></pre>
+<!--
+
+# Title
+
+题目^[贡献者为[\@](https://d.cosx.org/u/)，来自 <https://d.cosx.org/d/420762>]：
+
+:::cl
+
+**N 版**
+
+
+
+:::
+
+:::cc
+
+:::
+
+:::cr
+
+**T 版**
+
+
+
+:::
+
+-->
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>贡献者为<a href="https://d.cosx.org/u/dhfly">@dhfly</a> <a href="https://d.cosx.org/u/dhfly">@dapengde</a> <a href="https://d.cosx.org/u/dhfly">@frankzhang21</a> <a href="https://d.cosx.org/u/dhfly">@zpmu</a>，来自 <a href="https://d.cosx.org/d/421170" class="uri">https://d.cosx.org/d/421170</a><a href="将数据框分组提取某列最大值并做后续操作.html#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="将持续天数转换成每天出现频次.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="数据框筛选重写.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="数据框筛选重写.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="backmatter.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
