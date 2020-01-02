@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>TNT 擂台赛</title>
-  <meta name="description" content="TNT 擂台赛" />
+  <title>7 从字符串里提取数字并做后续运算 | TNT 擂台赛</title>
+  <meta name="description" content="7 从字符串里提取数字并做后续运算 | TNT 擂台赛" />
   <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="TNT 擂台赛" />
+  <meta property="og:title" content="7 从字符串里提取数字并做后续运算 | TNT 擂台赛" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="pzhaonet/book-bt" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="TNT 擂台赛" />
+  <meta name="twitter:title" content="7 从字符串里提取数字并做后续运算 | TNT 擂台赛" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="d420766.html"/>
+<link rel="prev" href="d420996.html"/>
+<link rel="next" href="d420762.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -163,38 +163,52 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">TNT 擂台赛</h1>
-<h2 class="subtitle"><em>Tidyverse vs. Non-Tidyverse: To be or Not To be</em></h2>
-<p class="author"><em>大鹏（编）</em></p>
-<p class="date"><em>2020-01-02</em></p>
+<div id="d420859" class="section level1">
+<h1><span class="header-section-number">7</span> 从字符串里提取数字并做后续运算</h1>
+<p><a href="https://d.cosx.org/d/420859/">题目</a>：我的数据中某些列含有2L,3ND这种数字和字母的组合：</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">dd &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">num =</span> <span class="kw">c</span>(<span class="st">&quot;2L&quot;</span>,<span class="st">&quot;3ND&quot;</span>,<span class="dv">66</span>), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>需要把字母去掉，然后剩下的数字除以2（2L变为2，然后除以2，3ND变为3，然后除以2，不含L或者ND的数字保持不变）。</p>
+<div class="cl">
+<p><strong>N 版</strong></p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">dd_n &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">gsub</span>(<span class="st">&#39;[a-zA-Z]+&#39;</span>, </a>
+<a class="sourceLine" id="cb34-2" data-line-number="2">                        <span class="st">&#39;&#39;</span>, </a>
+<a class="sourceLine" id="cb34-3" data-line-number="3">                        dd[, <span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb34-4" data-line-number="4">dd_m &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&#39;[a-zA-Z]+&#39;</span>, </a>
+<a class="sourceLine" id="cb34-5" data-line-number="5">                     dd[, <span class="dv">1</span>]), </a>
+<a class="sourceLine" id="cb34-6" data-line-number="6">               <span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb34-7" data-line-number="7">               <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb34-8" data-line-number="8">dd_n<span class="op">/</span>dd_m</a></code></pre></div>
+<pre><code>## [1]  0.4  0.6 66.0</code></pre>
 </div>
-<div id="序言" class="section level1 unnumbered">
-<h1>序言</h1>
-<p><a href="https://d.cosx.org/d/420762/11">前些天</a>有感而发：</p>
-<blockquote>
-<p>cosx 快成了 Base R vs. TidyVerse 的擂台了。</p>
-</blockquote>
-<p><a href="https://d.cosx.org/d/420766/18">有一天</a>突发奇想：</p>
-<blockquote>
-<p>建议以后对 cosx 所有的提问都给出 Base R 版和 Tidyverse 版 。做做大脑体操。简称 B 版和 T 版。我自告奋勇整理成书。书名我都想好了：BT 擂台赛。</p>
-</blockquote>
-<p>于是建了个 bookdown 项目：</p>
-<ul>
-<li>预览：<a href="https://pzhaonet.github.io/btcookbook" class="uri">https://pzhaonet.github.io/btcookbook</a></li>
-<li>Repo: <a href="https://github.com/pzhaonet/btcookbook" class="uri">https://github.com/pzhaonet/btcookbook</a></li>
-</ul>
-<p>然而，始料未及的是，有些朋友对如何界定 Base R 提出了<a href="https://d.cosx.org/d/420769">不同的意见</a>。这个确实比较头大，尤其对我这样一个既不是搞数据科学的，又不是搞统计学的来说更为如此。我重申：可能“擂台赛”这个词有些误导，然而其实并不是要他们分输赢，而是通过比较来强化我们对他们的理解和消化。</p>
-<p>为了避免不必要的误会和纷争，这个项目<a href="https://d.cosx.org/d/420808-ggplot/15">改名</a> 为 Tidyverse vs. Non-Tidyverse (TNT) 擂台赛。TNT <a href="https://d.cosx.org/d/420808/19">背后的含义</a>可以是 “To be or Not To be”。希望因改名而淡化一些火药味。学习为主。欢迎有志之士加入一起完成。</p>
-<p>本文素材来自<a href="https://d.cosx.org">统计之都</a>。文中每个示例均列出了原始出处。感谢各位贡献者。</p>
+<div class="cc">
+
+</div>
+<div class="cr">
+<p><strong>T 版</strong></p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">dd1 &lt;-<span class="st"> </span><span class="kw">separate</span>(dd, num, </a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">                <span class="dt">sep =</span> <span class="st">&quot;[:upper:]&quot;</span>, </a>
+<a class="sourceLine" id="cb36-4" data-line-number="4">                <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;num&quot;</span>, <span class="st">&quot;letter&quot;</span>))</a>
+<a class="sourceLine" id="cb36-5" data-line-number="5">dd1<span class="op">$</span>num &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(dd1<span class="op">$</span>num)</a>
+<a class="sourceLine" id="cb36-6" data-line-number="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dd1<span class="op">$</span>num))</a>
+<a class="sourceLine" id="cb36-7" data-line-number="7"><span class="cf">if</span> (<span class="kw">is.na</span>(dd1<span class="op">$</span>letter[i])) {</a>
+<a class="sourceLine" id="cb36-8" data-line-number="8">        dd1<span class="op">$</span>num[i] =<span class="st"> </span>dd1<span class="op">$</span>num[i] </a>
+<a class="sourceLine" id="cb36-9" data-line-number="9">} <span class="cf">else</span> {dd1<span class="op">$</span>num[i] =<span class="st"> </span>dd1<span class="op">$</span>num[i] <span class="op">/</span><span class="st"> </span><span class="dv">5</span>}</a>
+<a class="sourceLine" id="cb36-10" data-line-number="10">dd &lt;-<span class="st"> </span>dd1[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb36-11" data-line-number="11">dd</a></code></pre></div>
+<pre><code>##    num
+## 1  0.4
+## 2  0.6
+## 3 66.0</code></pre>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="d420766.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="d420996.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="d420762.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

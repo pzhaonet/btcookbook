@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>TNT 擂台赛</title>
-  <meta name="description" content="TNT 擂台赛" />
+  <title>4 柱状图的边框 | TNT 擂台赛</title>
+  <meta name="description" content="4 柱状图的边框 | TNT 擂台赛" />
   <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="TNT 擂台赛" />
+  <meta property="og:title" content="4 柱状图的边框 | TNT 擂台赛" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="pzhaonet/book-bt" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="TNT 擂台赛" />
+  <meta name="twitter:title" content="4 柱状图的边框 | TNT 擂台赛" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="d420766.html"/>
+<link rel="prev" href="d420808.html"/>
+<link rel="next" href="d420854.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -163,38 +163,68 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">TNT 擂台赛</h1>
-<h2 class="subtitle"><em>Tidyverse vs. Non-Tidyverse: To be or Not To be</em></h2>
-<p class="author"><em>大鹏（编）</em></p>
-<p class="date"><em>2020-01-02</em></p>
+<div id="d421117" class="section level1">
+<h1><span class="header-section-number">4</span> 柱状图的边框</h1>
+<p><a href="https://d.cosx.org/d/421117">题目</a>：</p>
+<p>下图来自Economisit：</p>
+<p><img src="https://www.economist.com/sites/default/files/imagecache/640-width/images/2019/12/articles/main/20191207_woc950.png" /></p>
+<p>请问，如何在柱状图里指定的某些柱子上显示边框？</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="co"># 准备数据</span></a>
+<a class="sourceLine" id="cb16-2" data-line-number="2">df =<span class="st"> </span>mtcars</a>
+<a class="sourceLine" id="cb16-3" data-line-number="3">df<span class="op">$</span>car =<span class="st"> </span><span class="kw">rownames</span>(mtcars)</a>
+<a class="sourceLine" id="cb16-4" data-line-number="4">cl_red &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>)</a></code></pre></div>
+<div class="cl">
+<p><strong>N 版</strong></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">df.o &lt;-<span class="st"> </span>df[<span class="kw">order</span>(df[,<span class="dv">1</span>]), ]</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2">df.o<span class="op">$</span>bd &lt;-<span class="st"> &quot;NA&quot;</span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3">df.o<span class="op">$</span>bd[cl_red] &lt;-<span class="st"> &quot;red&quot;</span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">12</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="dt">las =</span> <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5">barplot_car &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="st">  </span><span class="kw">barplot</span>(df.o<span class="op">$</span>mpg, <span class="dt">border =</span> df.o<span class="op">$</span>bd, </a>
+<a class="sourceLine" id="cb17-7" data-line-number="7">          <span class="dt">col =</span> df.o<span class="op">$</span>cyl, <span class="dt">ylab =</span> <span class="st">&#39;mpg&#39;</span>, </a>
+<a class="sourceLine" id="cb17-8" data-line-number="8">          <span class="dt">main =</span> <span class="st">&#39;Miles per gallon&#39;</span>)</a>
+<a class="sourceLine" id="cb17-9" data-line-number="9"><span class="kw">legend</span>(<span class="st">&#39;topleft&#39;</span>, <span class="dt">legend =</span> <span class="kw">unique</span>(df.o<span class="op">$</span>cyl), </a>
+<a class="sourceLine" id="cb17-10" data-line-number="10">       <span class="dt">fill =</span> <span class="kw">unique</span>(df.o<span class="op">$</span>cyl), <span class="dt">title =</span> <span class="st">&#39;cyl&#39;</span>, </a>
+<a class="sourceLine" id="cb17-11" data-line-number="11">       <span class="dt">border =</span> <span class="ot">NA</span>, <span class="dt">bty =</span> <span class="st">&#39;n&#39;</span>)</a>
+<a class="sourceLine" id="cb17-12" data-line-number="12"><span class="kw">text</span>(<span class="dt">x =</span> barplot_car[cl_red], </a>
+<a class="sourceLine" id="cb17-13" data-line-number="13">     <span class="dt">y =</span> df.o<span class="op">$</span>mpg[cl_red], </a>
+<a class="sourceLine" id="cb17-14" data-line-number="14">     <span class="dt">labels =</span> df.o<span class="op">$</span>hp[cl_red])</a>
+<a class="sourceLine" id="cb17-15" data-line-number="15"><span class="kw">mtext</span>(<span class="st">&#39;car&#39;</span>, <span class="dv">1</span>, <span class="dv">8</span>)</a>
+<a class="sourceLine" id="cb17-16" data-line-number="16"><span class="kw">axis</span>(<span class="dv">1</span>, <span class="dt">at =</span> barplot_car, <span class="dt">labels =</span> df.o<span class="op">$</span>car, </a>
+<a class="sourceLine" id="cb17-17" data-line-number="17">     <span class="dt">las =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 </div>
-<div id="序言" class="section level1 unnumbered">
-<h1>序言</h1>
-<p><a href="https://d.cosx.org/d/420762/11">前些天</a>有感而发：</p>
-<blockquote>
-<p>cosx 快成了 Base R vs. TidyVerse 的擂台了。</p>
-</blockquote>
-<p><a href="https://d.cosx.org/d/420766/18">有一天</a>突发奇想：</p>
-<blockquote>
-<p>建议以后对 cosx 所有的提问都给出 Base R 版和 Tidyverse 版 。做做大脑体操。简称 B 版和 T 版。我自告奋勇整理成书。书名我都想好了：BT 擂台赛。</p>
-</blockquote>
-<p>于是建了个 bookdown 项目：</p>
-<ul>
-<li>预览：<a href="https://pzhaonet.github.io/btcookbook" class="uri">https://pzhaonet.github.io/btcookbook</a></li>
-<li>Repo: <a href="https://github.com/pzhaonet/btcookbook" class="uri">https://github.com/pzhaonet/btcookbook</a></li>
-</ul>
-<p>然而，始料未及的是，有些朋友对如何界定 Base R 提出了<a href="https://d.cosx.org/d/420769">不同的意见</a>。这个确实比较头大，尤其对我这样一个既不是搞数据科学的，又不是搞统计学的来说更为如此。我重申：可能“擂台赛”这个词有些误导，然而其实并不是要他们分输赢，而是通过比较来强化我们对他们的理解和消化。</p>
-<p>为了避免不必要的误会和纷争，这个项目<a href="https://d.cosx.org/d/420808-ggplot/15">改名</a> 为 Tidyverse vs. Non-Tidyverse (TNT) 擂台赛。TNT <a href="https://d.cosx.org/d/420808/19">背后的含义</a>可以是 “To be or Not To be”。希望因改名而淡化一些火药味。学习为主。欢迎有志之士加入一起完成。</p>
-<p>本文素材来自<a href="https://d.cosx.org">统计之都</a>。文中每个示例均列出了原始出处。感谢各位贡献者。</p>
+<div class="cc">
+
+</div>
+<div class="cr">
+<p><strong>T 版</strong></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">require</span>(ggplot2)</a>
+<a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw">require</span>(dplyr)</a>
+<a class="sourceLine" id="cb18-3" data-line-number="3">df.sort =<span class="st"> </span>df <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw">arrange</span>(mpg)</a>
+<a class="sourceLine" id="cb18-5" data-line-number="5">df.sort <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-6" data-line-number="6"><span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>car,<span class="dt">y=</span>mpg,<span class="dt">fill=</span>cyl))<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-7" data-line-number="7"><span class="st">  </span><span class="kw">geom_col</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">data=</span> df.sort[cl_red,], </a>
+<a class="sourceLine" id="cb18-9" data-line-number="9">           <span class="dt">color=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-10" data-line-number="10"><span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span> df.sort[cl_red,], </a>
+<a class="sourceLine" id="cb18-11" data-line-number="11">            <span class="kw">aes</span>(<span class="dt">label=</span>hp))<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-12" data-line-number="12"><span class="st">  </span><span class="kw">scale_x_discrete</span>(<span class="dt">limits=</span> df.sort<span class="op">$</span>car) <span class="op">+</span></a>
+<a class="sourceLine" id="cb18-13" data-line-number="13"><span class="st">  </span><span class="kw">theme_classic</span>()<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-14" data-line-number="14"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">axis.text.x =</span> </a>
+<a class="sourceLine" id="cb18-15" data-line-number="15">          <span class="kw">element_text</span>(<span class="dt">angle =</span> <span class="dv">90</span>, <span class="dt">hjust =</span> <span class="dv">1</span>))<span class="op">+</span></a>
+<a class="sourceLine" id="cb18-16" data-line-number="16"><span class="st">  </span><span class="kw">ggtitle</span>(<span class="st">&quot;Miles per gallon&quot;</span>)</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="d420766.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="d420808.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="d420854.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

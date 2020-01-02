@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>TNT 擂台赛</title>
-  <meta name="description" content="TNT 擂台赛" />
+  <title>3 绘制地图 | TNT 擂台赛</title>
+  <meta name="description" content="3 绘制地图 | TNT 擂台赛" />
   <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="TNT 擂台赛" />
+  <meta property="og:title" content="3 绘制地图 | TNT 擂台赛" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="pzhaonet/book-bt" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="TNT 擂台赛" />
+  <meta name="twitter:title" content="3 绘制地图 | TNT 擂台赛" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="d420766.html"/>
+<link rel="prev" href="d420798.html"/>
+<link rel="next" href="d421117.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -163,38 +163,63 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">TNT 擂台赛</h1>
-<h2 class="subtitle"><em>Tidyverse vs. Non-Tidyverse: To be or Not To be</em></h2>
-<p class="author"><em>大鹏（编）</em></p>
-<p class="date"><em>2020-01-02</em></p>
+<div id="d420808" class="section level1">
+<h1><span class="header-section-number">3</span> 绘制地图</h1>
+<p><a href="https://d.cosx.org/d/420808">题目</a>：ggplot 绘制世界地图的基本方法是这样的：</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">require</span>(ggplot2)</a>
+<a class="sourceLine" id="cb10-2" data-line-number="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>), </a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">            <span class="kw">aes</span>(long,lat,<span class="dt">group=</span>group)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="st">  </span><span class="kw">geom_polygon</span>()</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">p</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>我想根据经纬度的范围来切出一块来，例如：</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">lr &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="op">-</span><span class="dv">140</span>, <span class="dv">120</span>)</a>
+<a class="sourceLine" id="cb11-2" data-line-number="2">p <span class="op">+</span><span class="st"> </span><span class="kw">coord_map</span>(<span class="dt">xlim =</span> lr)</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>就乱套了，有些地方出现了横跨左右的冗余色块。如果改用 <code>geom_path()</code> 则出现冗余线条。</p>
+<p>SO 上<a href="https://stackoverflow.com/questions/23652711/why-does-coord-map-produce-a-weird-output">类似的讨论</a>给出的解答只在 <code>xlim=c(-180,180)</code> 适用。换个小范围就不行了。</p>
+<p><a href="https://ggplot2-book.org/coord.html">ggplot2 官方说明书</a> 章节末尾给出的示例图就是乱的，居然没有任何说明：</p>
+<p><img src="https://ggplot2-book.org/coord_files/figure-html/map-world-1.png" /></p>
+<p>中文社区有<a href="https://ask.hellobi.com/blog/R_shequ/18995">文章</a>详细介绍如何画地图，然而给的示例中，同样无视这个问题：</p>
+<p><embed src="https://ask.hellobi.com/uploads/article/20190121/okycyifpko.webp" /></p>
+<p>如何能做出纬度均匀、无冗余色块、展示宽广区域的地图呢？</p>
+<div class="cl">
+<p><strong>N 版</strong></p>
+<p>使用 maps 包，用 <code>xlim</code> 和 <code>ylim</code> 指定范围即可。</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">maps<span class="op">::</span><span class="kw">map</span>(<span class="st">&quot;world&quot;</span>, </a>
+<a class="sourceLine" id="cb12-2" data-line-number="2">          <span class="dt">fill=</span><span class="ot">TRUE</span>, </a>
+<a class="sourceLine" id="cb12-3" data-line-number="3">          <span class="dt">col=</span><span class="st">&quot;white&quot;</span>, </a>
+<a class="sourceLine" id="cb12-4" data-line-number="4">          <span class="dt">bg=</span><span class="st">&quot;lightblue&quot;</span>, </a>
+<a class="sourceLine" id="cb12-5" data-line-number="5">          <span class="dt">xlim =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">140</span>, <span class="dv">120</span>))</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
-<div id="序言" class="section level1 unnumbered">
-<h1>序言</h1>
-<p><a href="https://d.cosx.org/d/420762/11">前些天</a>有感而发：</p>
-<blockquote>
-<p>cosx 快成了 Base R vs. TidyVerse 的擂台了。</p>
-</blockquote>
-<p><a href="https://d.cosx.org/d/420766/18">有一天</a>突发奇想：</p>
-<blockquote>
-<p>建议以后对 cosx 所有的提问都给出 Base R 版和 Tidyverse 版 。做做大脑体操。简称 B 版和 T 版。我自告奋勇整理成书。书名我都想好了：BT 擂台赛。</p>
-</blockquote>
-<p>于是建了个 bookdown 项目：</p>
-<ul>
-<li>预览：<a href="https://pzhaonet.github.io/btcookbook" class="uri">https://pzhaonet.github.io/btcookbook</a></li>
-<li>Repo: <a href="https://github.com/pzhaonet/btcookbook" class="uri">https://github.com/pzhaonet/btcookbook</a></li>
-</ul>
-<p>然而，始料未及的是，有些朋友对如何界定 Base R 提出了<a href="https://d.cosx.org/d/420769">不同的意见</a>。这个确实比较头大，尤其对我这样一个既不是搞数据科学的，又不是搞统计学的来说更为如此。我重申：可能“擂台赛”这个词有些误导，然而其实并不是要他们分输赢，而是通过比较来强化我们对他们的理解和消化。</p>
-<p>为了避免不必要的误会和纷争，这个项目<a href="https://d.cosx.org/d/420808-ggplot/15">改名</a> 为 Tidyverse vs. Non-Tidyverse (TNT) 擂台赛。TNT <a href="https://d.cosx.org/d/420808/19">背后的含义</a>可以是 “To be or Not To be”。希望因改名而淡化一些火药味。学习为主。欢迎有志之士加入一起完成。</p>
-<p>本文素材来自<a href="https://d.cosx.org">统计之都</a>。文中每个示例均列出了原始出处。感谢各位贡献者。</p>
+<div class="cc">
+
+</div>
+<div class="cr">
+<p><strong>T 版</strong></p>
+<p>在 <code>coord_map()</code> 函数里用 <code>projection</code> 更换投影坐标系，用 <code>orientation</code> 选择视角。</p>
+<p>例如，用默认投影和北极视角，可以消除冗余色块，但是纬度不均匀。</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-2" data-line-number="2"><span class="st">  </span><span class="kw">coord_map</span>(<span class="dt">xlim =</span> lr, </a>
+<a class="sourceLine" id="cb13-3" data-line-number="3">            <span class="dt">orientation =</span> <span class="kw">c</span>(<span class="dv">90</span>, <span class="dv">0</span>, <span class="dv">0</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">breaks =</span> <span class="dv">-9</span><span class="op">:</span><span class="dv">9</span> <span class="op">*</span><span class="st"> </span><span class="dv">10</span>)</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>如果用球面投影 “ortho”，纬度虽然不均匀，但显示在球面上更为自然，可是球背面就被挡住了，非洲和南美洲很难看到：</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span><span class="kw">coord_map</span>(<span class="st">&quot;orthographic&quot;</span>, <span class="dt">xlim =</span> lr)</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p>完美解决方案是用 <code>coord_quickmap()</code>:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span><span class="kw">coord_quickmap</span>(<span class="dt">xlim =</span> lr)</a></code></pre></div>
+<p><img src="btcookbook_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="d420766.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="d420798.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="d421117.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

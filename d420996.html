@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>TNT 擂台赛</title>
-  <meta name="description" content="TNT 擂台赛" />
+  <title>6 将持续天数转换成每天出现频次 | TNT 擂台赛</title>
+  <meta name="description" content="6 将持续天数转换成每天出现频次 | TNT 擂台赛" />
   <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="TNT 擂台赛" />
+  <meta property="og:title" content="6 将持续天数转换成每天出现频次 | TNT 擂台赛" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="pzhaonet/book-bt" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="TNT 擂台赛" />
+  <meta name="twitter:title" content="6 将持续天数转换成每天出现频次 | TNT 擂台赛" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="d420766.html"/>
+<link rel="prev" href="d420854.html"/>
+<link rel="next" href="d420859.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -163,38 +163,65 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">TNT 擂台赛</h1>
-<h2 class="subtitle"><em>Tidyverse vs. Non-Tidyverse: To be or Not To be</em></h2>
-<p class="author"><em>大鹏（编）</em></p>
-<p class="date"><em>2020-01-02</em></p>
+<div id="d420996" class="section level1">
+<h1><span class="header-section-number">6</span> 将持续天数转换成每天出现频次</h1>
+<p><a href="https://d.cosx.org/d/420996">题目</a>：</p>
+<p>有数据框:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1">date_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">start =</span> <span class="kw">c</span>(<span class="st">&quot;06-01&quot;</span>, <span class="st">&quot;06-02&quot;</span>, <span class="st">&quot;06-03&quot;</span>, <span class="st">&quot;06-04&quot;</span>, <span class="st">&quot;06-04&quot;</span>), </a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">                      <span class="dt">duration =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>), <span class="dt">stringsAsFactors=</span><span class="ot">FALSE</span>)</a></code></pre></div>
+<p><code>start</code> 列是日期，<code>duration</code> 列是从该日期天开始持续的天数。我想最后求得每天出现的频次是多少。</p>
+<div class="cl">
+<p><strong>N 版</strong></p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1"><span class="co"># 识别日期：</span></a>
+<a class="sourceLine" id="cb29-2" data-line-number="2">date_df<span class="op">$</span>ystart &lt;-<span class="st"> </span><span class="kw">as.Date</span>(</a>
+<a class="sourceLine" id="cb29-3" data-line-number="3">  <span class="kw">paste0</span>(<span class="st">&#39;2019-&#39;</span>, date_df<span class="op">$</span>start))</a>
+<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="co"># 生成所有日期：</span></a>
+<a class="sourceLine" id="cb29-5" data-line-number="5">date_ls &lt;-<span class="st"> </span><span class="kw">mapply</span>(</a>
+<a class="sourceLine" id="cb29-6" data-line-number="6">  <span class="cf">function</span>(x1, x2) </a>
+<a class="sourceLine" id="cb29-7" data-line-number="7">    <span class="kw">format</span>(</a>
+<a class="sourceLine" id="cb29-8" data-line-number="8">      <span class="kw">seq</span>(<span class="dt">from =</span> x1, <span class="dt">length.out =</span> x2, <span class="dt">by =</span> <span class="dv">1</span>), </a>
+<a class="sourceLine" id="cb29-9" data-line-number="9">      <span class="st">&#39;%m-%d&#39;</span>), </a>
+<a class="sourceLine" id="cb29-10" data-line-number="10">  date_df<span class="op">$</span>ystart, date_df<span class="op">$</span>duration)</a>
+<a class="sourceLine" id="cb29-11" data-line-number="11"><span class="co"># 统计频次：</span></a>
+<a class="sourceLine" id="cb29-12" data-line-number="12"><span class="kw">table</span>(<span class="kw">unlist</span>(date_ls))</a></code></pre></div>
+<pre><code>## 
+## 06-01 06-02 06-03 06-04 
+##     1     2     3     3</code></pre>
 </div>
-<div id="序言" class="section level1 unnumbered">
-<h1>序言</h1>
-<p><a href="https://d.cosx.org/d/420762/11">前些天</a>有感而发：</p>
-<blockquote>
-<p>cosx 快成了 Base R vs. TidyVerse 的擂台了。</p>
-</blockquote>
-<p><a href="https://d.cosx.org/d/420766/18">有一天</a>突发奇想：</p>
-<blockquote>
-<p>建议以后对 cosx 所有的提问都给出 Base R 版和 Tidyverse 版 。做做大脑体操。简称 B 版和 T 版。我自告奋勇整理成书。书名我都想好了：BT 擂台赛。</p>
-</blockquote>
-<p>于是建了个 bookdown 项目：</p>
-<ul>
-<li>预览：<a href="https://pzhaonet.github.io/btcookbook" class="uri">https://pzhaonet.github.io/btcookbook</a></li>
-<li>Repo: <a href="https://github.com/pzhaonet/btcookbook" class="uri">https://github.com/pzhaonet/btcookbook</a></li>
-</ul>
-<p>然而，始料未及的是，有些朋友对如何界定 Base R 提出了<a href="https://d.cosx.org/d/420769">不同的意见</a>。这个确实比较头大，尤其对我这样一个既不是搞数据科学的，又不是搞统计学的来说更为如此。我重申：可能“擂台赛”这个词有些误导，然而其实并不是要他们分输赢，而是通过比较来强化我们对他们的理解和消化。</p>
-<p>为了避免不必要的误会和纷争，这个项目<a href="https://d.cosx.org/d/420808-ggplot/15">改名</a> 为 Tidyverse vs. Non-Tidyverse (TNT) 擂台赛。TNT <a href="https://d.cosx.org/d/420808/19">背后的含义</a>可以是 “To be or Not To be”。希望因改名而淡化一些火药味。学习为主。欢迎有志之士加入一起完成。</p>
-<p>本文素材来自<a href="https://d.cosx.org">统计之都</a>。文中每个示例均列出了原始出处。感谢各位贡献者。</p>
+<div class="cc">
+
+</div>
+<div class="cr">
+<p><strong>T 版</strong></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">library</span>(lubridate)</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">get_series =<span class="st"> </span><span class="cf">function</span>(start, duration){</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">  start=<span class="st"> </span><span class="kw">as_datetime</span>(start, <span class="dt">format=</span><span class="st">&quot;%m-%d&quot;</span>)</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">  end =<span class="st"> </span>start <span class="op">+</span><span class="st"> </span><span class="kw">days</span>(duration)</a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">  <span class="kw">return</span>(<span class="kw">seq</span>(start, end, <span class="dt">by=</span><span class="st">&quot;1 day&quot;</span>))</a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb31-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb31-8" data-line-number="8">rslt =<span class="st"> </span><span class="kw">lapply</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(date_df), <span class="cf">function</span>(i){</a>
+<a class="sourceLine" id="cb31-9" data-line-number="9">  rslt =<span class="st"> </span><span class="kw">get_series</span>(date_df<span class="op">$</span>start[i], </a>
+<a class="sourceLine" id="cb31-10" data-line-number="10">                    date_df<span class="op">$</span>duration[i])</a>
+<a class="sourceLine" id="cb31-11" data-line-number="11">  rslt=<span class="kw">as.character</span>(rslt)</a>
+<a class="sourceLine" id="cb31-12" data-line-number="12">  <span class="kw">return</span>(rslt)</a>
+<a class="sourceLine" id="cb31-13" data-line-number="13">})</a>
+<a class="sourceLine" id="cb31-14" data-line-number="14"></a>
+<a class="sourceLine" id="cb31-15" data-line-number="15"><span class="kw">table</span>(<span class="kw">unlist</span>(rslt))</a></code></pre></div>
+<pre><code>## 
+## 2020-06-01 2020-06-02 2020-06-03 
+##          1          2          3 
+## 2020-06-04 2020-06-05 
+##          5          3</code></pre>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="d420766.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="d420854.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="d420859.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

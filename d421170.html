@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>TNT 擂台赛</title>
-  <meta name="description" content="TNT 擂台赛" />
+  <title>9 将数据框分组提取某列最大值并做后续操作 | TNT 擂台赛</title>
+  <meta name="description" content="9 将数据框分组提取某列最大值并做后续操作 | TNT 擂台赛" />
   <meta name="generator" content="bookdown 0.16.5 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="TNT 擂台赛" />
+  <meta property="og:title" content="9 将数据框分组提取某列最大值并做后续操作 | TNT 擂台赛" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="pzhaonet/book-bt" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="TNT 擂台赛" />
+  <meta name="twitter:title" content="9 将数据框分组提取某列最大值并做后续操作 | TNT 擂台赛" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-<link rel="next" href="d420766.html"/>
+<link rel="prev" href="d420762.html"/>
+<link rel="next" href="backmatter.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -163,38 +163,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">TNT 擂台赛</h1>
-<h2 class="subtitle"><em>Tidyverse vs. Non-Tidyverse: To be or Not To be</em></h2>
-<p class="author"><em>大鹏（编）</em></p>
-<p class="date"><em>2020-01-02</em></p>
+<div id="d421170" class="section level1">
+<h1><span class="header-section-number">9</span> 将数据框分组提取某列最大值并做后续操作</h1>
+<p>题目<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>：</p>
+<p>有数据框：</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="co"># 源数据</span></a>
+<a class="sourceLine" id="cb42-2" data-line-number="2">c1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">2015</span>, <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb42-3" data-line-number="3">c2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">2016</span>, <span class="dv">400</span>)</a>
+<a class="sourceLine" id="cb42-4" data-line-number="4">c3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;b&#39;</span>, <span class="dv">2015</span>, <span class="dv">700</span>)</a>
+<a class="sourceLine" id="cb42-5" data-line-number="5">c4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;b&#39;</span>, <span class="dv">2016</span>, <span class="dv">600</span>)</a>
+<a class="sourceLine" id="cb42-6" data-line-number="6">dt &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rbind</span>(c1, c2, c3, c4), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb42-7" data-line-number="7"><span class="kw">names</span>(dt) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;name&#39;</span>, <span class="st">&#39;date&#39;</span>, <span class="st">&#39;amount&#39;</span>)</a>
+<a class="sourceLine" id="cb42-8" data-line-number="8">dt</a></code></pre></div>
+<pre><code>##    name date amount
+## c1    a 2015    300
+## c2    a 2016    400
+## c3    b 2015    700
+## c4    b 2016    600</code></pre>
+<p>其中，a 和 b 为客户名，amount 为金额，date 年份。欲挑选出每个客户金额的最大值和对应年份，并将对应的第二列和第三列合并，也就是想得到如下结果：</p>
+<pre><code>name   merged
+a      2016-400
+b      2015-700</code></pre>
+<p>该如何操作？</p>
+<div class="cl">
+<p><strong>N 版</strong></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">dt<span class="op">$</span>merged &lt;-<span class="st"> </span><span class="kw">paste0</span>(dt<span class="op">$</span>date, <span class="st">&#39;-&#39;</span>, dt<span class="op">$</span>amount)</a>
+<a class="sourceLine" id="cb45-2" data-line-number="2">find_max &lt;-<span class="st">  </span><span class="cf">function</span>(x) </a>
+<a class="sourceLine" id="cb45-3" data-line-number="3">  x[<span class="kw">which.max</span>(<span class="kw">substr</span>(x, <span class="dv">6</span>, <span class="kw">nchar</span>(x)))]</a>
+<a class="sourceLine" id="cb45-4" data-line-number="4">tb &lt;-<span class="st"> </span><span class="kw">tapply</span>(dt<span class="op">$</span>merged, dt<span class="op">$</span>name, find_max)</a>
+<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="kw">names</span>(tb), <span class="dt">merged =</span> tb)</a></code></pre></div>
+<pre><code>##   name   merged
+## a    a 2016-400
+## b    b 2015-700</code></pre>
 </div>
-<div id="序言" class="section level1 unnumbered">
-<h1>序言</h1>
-<p><a href="https://d.cosx.org/d/420762/11">前些天</a>有感而发：</p>
-<blockquote>
-<p>cosx 快成了 Base R vs. TidyVerse 的擂台了。</p>
-</blockquote>
-<p><a href="https://d.cosx.org/d/420766/18">有一天</a>突发奇想：</p>
-<blockquote>
-<p>建议以后对 cosx 所有的提问都给出 Base R 版和 Tidyverse 版 。做做大脑体操。简称 B 版和 T 版。我自告奋勇整理成书。书名我都想好了：BT 擂台赛。</p>
-</blockquote>
-<p>于是建了个 bookdown 项目：</p>
-<ul>
-<li>预览：<a href="https://pzhaonet.github.io/btcookbook" class="uri">https://pzhaonet.github.io/btcookbook</a></li>
-<li>Repo: <a href="https://github.com/pzhaonet/btcookbook" class="uri">https://github.com/pzhaonet/btcookbook</a></li>
-</ul>
-<p>然而，始料未及的是，有些朋友对如何界定 Base R 提出了<a href="https://d.cosx.org/d/420769">不同的意见</a>。这个确实比较头大，尤其对我这样一个既不是搞数据科学的，又不是搞统计学的来说更为如此。我重申：可能“擂台赛”这个词有些误导，然而其实并不是要他们分输赢，而是通过比较来强化我们对他们的理解和消化。</p>
-<p>为了避免不必要的误会和纷争，这个项目<a href="https://d.cosx.org/d/420808-ggplot/15">改名</a> 为 Tidyverse vs. Non-Tidyverse (TNT) 擂台赛。TNT <a href="https://d.cosx.org/d/420808/19">背后的含义</a>可以是 “To be or Not To be”。希望因改名而淡化一些火药味。学习为主。欢迎有志之士加入一起完成。</p>
-<p>本文素材来自<a href="https://d.cosx.org">统计之都</a>。文中每个示例均列出了原始出处。感谢各位贡献者。</p>
+<div class="cc">
+
+</div>
+<div class="cr">
+<p><strong>T 版</strong></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb47-2" data-line-number="2">dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(amount <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(amount)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">merged =</span> </a>
+<a class="sourceLine" id="cb47-6" data-line-number="6">           <span class="kw">paste</span>(date, amount, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb47-7" data-line-number="7"><span class="st">  </span><span class="kw">ungroup</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   name  date  amount merged  
+##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   
+## 1 a     2016  400    2016-400
+## 2 b     2015  700    2015-700</code></pre>
+</div>
+<pre><code>
+
+</code></pre>
+<p>另有 <strong>data.table</strong> 解决方案：</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">library</span>(data.table)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">setDT</span>(dt)</a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">dt[,.SD[amount <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(amount), .(<span class="dt">merged =</span> <span class="kw">paste0</span>(date, <span class="st">&quot;-&quot;</span>, amount))], by =<span class="st"> </span>.(name)]</a></code></pre></div>
+<pre><code>##    name   merged
+## 1:    a 2016-400
+## 2:    b 2015-700</code></pre>
+<!--
+
+# Title
+
+题目^[贡献者为[\@](https://d.cosx.org/u/)，来自 <https://d.cosx.org/d/420762>]：
+
+:::cl
+
+**N 版**
+
+
+
+:::
+
+:::cc
+
+:::
+
+:::cr
+
+**T 版**
+
+
+
+:::
+
+-->
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>贡献者为<a href="https://d.cosx.org/u/dhfly">@dhfly</a> <a href="https://d.cosx.org/u/dhfly">@dapengde</a> <a href="https://d.cosx.org/u/dhfly">@frankzhang21</a> <a href="https://d.cosx.org/u/dhfly">@zpmu</a>，来自 <a href="https://d.cosx.org/d/421170" class="uri">https://d.cosx.org/d/421170</a><a href="d421170.html#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-<a href="d420766.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="d420762.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="backmatter.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
