@@ -516,12 +516,81 @@ mtcars %>%
 
 :::
 
+# 将数据框分组提取某列最大值并做后续操作
+
+题目^[贡献者为[\@dhfly](https://d.cosx.org/u/dhfly) [\@dapengde](https://d.cosx.org/u/dhfly) [\@frankzhang21](https://d.cosx.org/u/dhfly) [\@zpmu](https://d.cosx.org/u/dhfly)，来自 <https://d.cosx.org/d/421170>]：
+
+有数据框：
+
+```{r}
+# 源数据
+c1 <- c('a', 2015, 300)
+c2 <- c('a', 2016, 400)
+c3 <- c('b', 2015, 700)
+c4 <- c('b', 2016, 600)
+dt <- data.frame(rbind(c1, c2, c3, c4), stringsAsFactors = FALSE)
+names(dt) <- c('name', 'date', 'amount')
+dt
+```
+
+其中，a 和 b 为客户名，amount 为金额，date 年份。欲挑选出每个客户金额的最大值和对应年份，并将对应的第二列和第三列合并，也就是想得到如下结果：
+
+```
+name   merged
+a      2016-400
+b      2015-700
+```
+
+该如何操作？
+
+
+:::cl
+
+**N 版**
+
+```{r}
+dt$merged <- paste0(dt$date, '-', dt$amount)
+find_max <-  function(x) 
+  x[which.max(substr(x, 6, nchar(x)))]
+tb <- tapply(dt$merged, dt$name, find_max)
+data.frame(name = names(tb), merged = tb)
+```
+
+:::
+
+:::cc
+
+:::
+
+:::cr
+
+**T 版**
+
+```{r}
+library(tidyverse)
+dt %>%
+  group_by(name) %>%
+  filter(amount == max(amount)) %>%
+  mutate(merged = paste(date, amount, sep = "-")) %>%
+  ungroup()
+```
+
+:::
+
+另有 **data.table** 解决方案：
+
+```{r}
+library(data.table)
+setDT(dt)
+dt[,.SD[amount == max(amount), .(merged = paste0(date, "-", amount))], by = .(name)]
+```
+
 
 <!--
 
 # Title
 
-[题目](https://d.cosx.org/d/420762)：
+题目^[贡献者为[\@](https://d.cosx.org/u/)，来自 <https://d.cosx.org/d/420762>]：
 
 :::cl
 
