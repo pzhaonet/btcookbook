@@ -38,7 +38,7 @@ knitr::opts_chunk$set(eval = TRUE, message = FALSE, warning = FALSE, error = FAL
 本文素材来自[统计之都](https://d.cosx.org)。文中每个示例均列出了原始出处。感谢各位贡献者。
 
 
-# 曲线簇 
+# 曲线簇 {#d420766}
 
 [题目](https://d.cosx.org/d/420766)：函数 $xy = z$，$z$ 取值为 1、2、3、4， $x$ 和 $y$ 的取值区间为 (0, 10]，如何画出这4条曲线？
 
@@ -116,7 +116,7 @@ out
 
 :::
 
-# 直方图的对数坐标 
+# 直方图的对数坐标 {#d420798}
 
 [题目](https://d.cosx.org/d/420798)：如何绘制对数坐标的直方图？
 
@@ -160,7 +160,7 @@ ggplot() +
 
 :::
 
-# 绘制地图
+# 绘制地图 {#d420808}
 
 [题目](https://d.cosx.org/d/420808)：ggplot 绘制世界地图的基本方法是这样的：
 
@@ -244,7 +244,7 @@ p + coord_quickmap(xlim = lr)
 
 
 
-# 柱状图的边框
+# 柱状图的边框 {#d421117}
 
 [题目](https://d.cosx.org/d/421117)：
 
@@ -319,7 +319,7 @@ df.sort %>%
 
 :::
 
-# 从字符串里提取年和月
+# 从字符串里提取年和月 {#d420854}
 
 [题目](https://d.cosx.org/d/420854)：部分数据集展示如下，我现在能想到的分离办法就是写正则表达式，还有没有更方便的办法？
 
@@ -357,7 +357,7 @@ lubridate::month(x)
 
 
 
-# 将持续天数转换成每天出现频次 
+# 将持续天数转换成每天出现频次 {#d420996}
 
 [题目](https://d.cosx.org/d/420996)：
 
@@ -420,7 +420,7 @@ table(unlist(rslt))
 
 :::
 
-# 从字符串里提取数字并做后续运算
+# 从字符串里提取数字并做后续运算 {#d420859}
 
 [题目](https://d.cosx.org/d/420859/)：我的数据中某些列含有2L,3ND这种数字和字母的组合：
 
@@ -471,7 +471,7 @@ dd
 
 :::
 
-# 数据框筛选重写
+# 数据框筛选重写 {#d420762}
 
 [题目](https://d.cosx.org/d/420762)：数据框 mtcars，对满足某些条件比如行 2 到 5、列为 'cyl' 的数据进行重写，重写的条件为如果该值小于 6 就重写为 2。（[类似题目](https://d.cosx.org/d/420869)）
 
@@ -516,7 +516,7 @@ mtcars %>%
 
 :::
 
-# 将数据框分组提取某列最大值并做后续操作
+# 将数据框分组提取某列最大值并做后续操作 {#d421170}
 
 题目^[贡献者为[\@dhfly](https://d.cosx.org/u/dhfly) [\@dapengde](https://d.cosx.org/u/dhfly) [\@frankzhang21](https://d.cosx.org/u/dhfly) [\@zpmu](https://d.cosx.org/u/dhfly)，来自 <https://d.cosx.org/d/421170>]：
 
@@ -571,11 +571,16 @@ library(tidyverse)
 dt %>%
   group_by(name) %>%
   filter(amount == max(amount)) %>%
-  mutate(merged = paste(date, amount, sep = "-")) %>%
+  mutate(merged = 
+           paste(date, amount, sep = "-")) %>%
   ungroup()
 ```
 
 :::
+
+<pre><code>
+
+</code></pre>
 
 另有 **data.table** 解决方案：
 
