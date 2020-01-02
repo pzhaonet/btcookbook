@@ -165,19 +165,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="d420859" class="section level1">
 <h1><span class="header-section-number">7</span> 从字符串里提取数字并做后续运算</h1>
-<p><a href="https://d.cosx.org/d/420859/">题目</a>：我的数据中某些列含有2L,3ND这种数字和字母的组合：</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">dd &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">num =</span> <span class="kw">c</span>(<span class="st">&quot;2L&quot;</span>,<span class="st">&quot;3ND&quot;</span>,<span class="dv">66</span>), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>题目<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>：
+我的数据中某些列含有2L,3ND这种数字和字母的组合：</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1">dd &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">num =</span> <span class="kw">c</span>(<span class="st">&quot;2L&quot;</span>,<span class="st">&quot;3ND&quot;</span>,<span class="dv">66</span>), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <p>需要把字母去掉，然后剩下的数字除以2（2L变为2，然后除以2，3ND变为3，然后除以2，不含L或者ND的数字保持不变）。</p>
 <div class="cl">
 <p><strong>N 版</strong></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" data-line-number="1">dd_n &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">gsub</span>(<span class="st">&#39;[a-zA-Z]+&#39;</span>, </a>
-<a class="sourceLine" id="cb34-2" data-line-number="2">                        <span class="st">&#39;&#39;</span>, </a>
-<a class="sourceLine" id="cb34-3" data-line-number="3">                        dd[, <span class="dv">1</span>]))</a>
-<a class="sourceLine" id="cb34-4" data-line-number="4">dd_m &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&#39;[a-zA-Z]+&#39;</span>, </a>
-<a class="sourceLine" id="cb34-5" data-line-number="5">                     dd[, <span class="dv">1</span>]), </a>
-<a class="sourceLine" id="cb34-6" data-line-number="6">               <span class="dv">5</span>, </a>
-<a class="sourceLine" id="cb34-7" data-line-number="7">               <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb34-8" data-line-number="8">dd_n<span class="op">/</span>dd_m</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1">dd_n &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(<span class="kw">gsub</span>(<span class="st">&#39;[a-zA-Z]+&#39;</span>, </a>
+<a class="sourceLine" id="cb36-2" data-line-number="2">                        <span class="st">&#39;&#39;</span>, </a>
+<a class="sourceLine" id="cb36-3" data-line-number="3">                        dd[, <span class="dv">1</span>]))</a>
+<a class="sourceLine" id="cb36-4" data-line-number="4">dd_m &lt;-<span class="st"> </span><span class="kw">ifelse</span>(<span class="kw">grepl</span>(<span class="st">&#39;[a-zA-Z]+&#39;</span>, </a>
+<a class="sourceLine" id="cb36-5" data-line-number="5">                     dd[, <span class="dv">1</span>]), </a>
+<a class="sourceLine" id="cb36-6" data-line-number="6">               <span class="dv">5</span>, </a>
+<a class="sourceLine" id="cb36-7" data-line-number="7">               <span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb36-8" data-line-number="8">dd_n<span class="op">/</span>dd_m</a></code></pre></div>
 <pre><code>## [1]  0.4  0.6 66.0</code></pre>
 </div>
 <div class="cc">
@@ -185,22 +186,31 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cr">
 <p><strong>T 版</strong></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb36-2" data-line-number="2">dd1 &lt;-<span class="st"> </span><span class="kw">separate</span>(dd, num, </a>
-<a class="sourceLine" id="cb36-3" data-line-number="3">                <span class="dt">sep =</span> <span class="st">&quot;[:upper:]&quot;</span>, </a>
-<a class="sourceLine" id="cb36-4" data-line-number="4">                <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;num&quot;</span>, <span class="st">&quot;letter&quot;</span>))</a>
-<a class="sourceLine" id="cb36-5" data-line-number="5">dd1<span class="op">$</span>num &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(dd1<span class="op">$</span>num)</a>
-<a class="sourceLine" id="cb36-6" data-line-number="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dd1<span class="op">$</span>num))</a>
-<a class="sourceLine" id="cb36-7" data-line-number="7"><span class="cf">if</span> (<span class="kw">is.na</span>(dd1<span class="op">$</span>letter[i])) {</a>
-<a class="sourceLine" id="cb36-8" data-line-number="8">        dd1<span class="op">$</span>num[i] =<span class="st"> </span>dd1<span class="op">$</span>num[i] </a>
-<a class="sourceLine" id="cb36-9" data-line-number="9">} <span class="cf">else</span> {dd1<span class="op">$</span>num[i] =<span class="st"> </span>dd1<span class="op">$</span>num[i] <span class="op">/</span><span class="st"> </span><span class="dv">5</span>}</a>
-<a class="sourceLine" id="cb36-10" data-line-number="10">dd &lt;-<span class="st"> </span>dd1[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb36-11" data-line-number="11">dd</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb38-2" data-line-number="2">dd1 &lt;-<span class="st"> </span><span class="kw">separate</span>(dd, num, </a>
+<a class="sourceLine" id="cb38-3" data-line-number="3">                <span class="dt">sep =</span> <span class="st">&quot;[:upper:]&quot;</span>, </a>
+<a class="sourceLine" id="cb38-4" data-line-number="4">                <span class="dt">into =</span> <span class="kw">c</span>(<span class="st">&quot;num&quot;</span>, <span class="st">&quot;letter&quot;</span>))</a>
+<a class="sourceLine" id="cb38-5" data-line-number="5">dd1<span class="op">$</span>num &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(dd1<span class="op">$</span>num)</a>
+<a class="sourceLine" id="cb38-6" data-line-number="6"><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(dd1<span class="op">$</span>num))</a>
+<a class="sourceLine" id="cb38-7" data-line-number="7"><span class="cf">if</span> (<span class="kw">is.na</span>(dd1<span class="op">$</span>letter[i])) {</a>
+<a class="sourceLine" id="cb38-8" data-line-number="8">        dd1<span class="op">$</span>num[i] =<span class="st"> </span>dd1<span class="op">$</span>num[i] </a>
+<a class="sourceLine" id="cb38-9" data-line-number="9">} <span class="cf">else</span> {dd1<span class="op">$</span>num[i] =<span class="st"> </span>dd1<span class="op">$</span>num[i] <span class="op">/</span><span class="st"> </span><span class="dv">5</span>}</a>
+<a class="sourceLine" id="cb38-10" data-line-number="10">dd &lt;-<span class="st"> </span>dd1[<span class="dv">1</span>]</a>
+<a class="sourceLine" id="cb38-11" data-line-number="11">dd</a></code></pre></div>
 <pre><code>##    num
 ## 1  0.4
 ## 2  0.6
 ## 3 66.0</code></pre>
 </div>
+<div class="clear">
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="7">
+<li id="fn7"><p>贡献者为 <a href="https://d.cosx.org/u/wqssf">@wqssf</a> <a href="https://d.cosx.org/u/Liechi">@Liechi</a> <a href="https://d.cosx.org/u/dapengde">@dapengde</a> 等，来自 <a href="https://d.cosx.org/d/420859" class="uri">https://d.cosx.org/d/420859</a>。<a href="d420859.html#fnref7" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 

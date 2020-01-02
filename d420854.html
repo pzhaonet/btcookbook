@@ -165,7 +165,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="d420854" class="section level1">
 <h1><span class="header-section-number">5</span> 从字符串里提取年和月</h1>
-<p><a href="https://d.cosx.org/d/420854">题目</a>：部分数据集展示如下，我现在能想到的分离办法就是写正则表达式，还有没有更方便的办法？</p>
+<p>题目<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>：
+部分数据集展示如下，我现在能想到的分离办法就是写正则表达式，还有没有更方便的办法？</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;2019-06-30 21:44:44&#39;</span>, <span class="st">&#39;2019-06-30 21:32:29&#39;</span>, <span class="st">&#39;2019-06-30 12:14:25&#39;</span>)</a></code></pre></div>
 <div class="cl">
 <p><strong>N 版</strong></p>
@@ -186,6 +187,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" data-line-number="1">lubridate<span class="op">::</span><span class="kw">month</span>(x)</a></code></pre></div>
 <pre><code>## [1] 6 6 6</code></pre>
 </div>
+<div class="clear">
+
+</div>
+<p>另有 <strong>data.table</strong> 版：</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" data-line-number="1"><span class="kw">library</span>(data.table)</a>
+<a class="sourceLine" id="cb28-2" data-line-number="2">x_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x)</a>
+<a class="sourceLine" id="cb28-3" data-line-number="3"><span class="kw">setDT</span>(x_df)[, <span class="st">`</span><span class="dt">:=</span><span class="st">`</span>(<span class="dt">y =</span> <span class="kw">year</span>(x), <span class="dt">m=</span><span class="kw">month</span>(x))]</a>
+<a class="sourceLine" id="cb28-4" data-line-number="4">x_df</a></code></pre></div>
+<pre><code>##                      x    y m
+## 1: 2019-06-30 21:44:44 2019 6
+## 2: 2019-06-30 21:32:29 2019 6
+## 3: 2019-06-30 12:14:25 2019 6</code></pre>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="5">
+<li id="fn5"><p>贡献者为 <a href="https://d.cosx.org/u/Cloud2016">@Cloud2016</a> <a href="https://d.cosx.org/u/dapengde">@dapengde</a> <a href="https://d.cosx.org/u/xieshichen">@xieshichen</a> 等，来自 <a href="https://d.cosx.org/d/420854" class="uri">https://d.cosx.org/d/420854</a>。<a href="d420854.html#fnref5" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 

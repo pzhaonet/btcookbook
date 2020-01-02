@@ -165,16 +165,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="d421170" class="section level1">
 <h1><span class="header-section-number">9</span> 将数据框分组提取某列最大值并做后续操作</h1>
-<p>题目<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>：</p>
-<p>有数据框：</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" data-line-number="1"><span class="co"># 源数据</span></a>
-<a class="sourceLine" id="cb42-2" data-line-number="2">c1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">2015</span>, <span class="dv">300</span>)</a>
-<a class="sourceLine" id="cb42-3" data-line-number="3">c2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">2016</span>, <span class="dv">400</span>)</a>
-<a class="sourceLine" id="cb42-4" data-line-number="4">c3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;b&#39;</span>, <span class="dv">2015</span>, <span class="dv">700</span>)</a>
-<a class="sourceLine" id="cb42-5" data-line-number="5">c4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;b&#39;</span>, <span class="dv">2016</span>, <span class="dv">600</span>)</a>
-<a class="sourceLine" id="cb42-6" data-line-number="6">dt &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rbind</span>(c1, c2, c3, c4), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb42-7" data-line-number="7"><span class="kw">names</span>(dt) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;name&#39;</span>, <span class="st">&#39;date&#39;</span>, <span class="st">&#39;amount&#39;</span>)</a>
-<a class="sourceLine" id="cb42-8" data-line-number="8">dt</a></code></pre></div>
+<p>题目<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>：
+有数据框：</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" data-line-number="1"><span class="co"># 源数据</span></a>
+<a class="sourceLine" id="cb46-2" data-line-number="2">c1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">2015</span>, <span class="dv">300</span>)</a>
+<a class="sourceLine" id="cb46-3" data-line-number="3">c2 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;a&#39;</span>, <span class="dv">2016</span>, <span class="dv">400</span>)</a>
+<a class="sourceLine" id="cb46-4" data-line-number="4">c3 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;b&#39;</span>, <span class="dv">2015</span>, <span class="dv">700</span>)</a>
+<a class="sourceLine" id="cb46-5" data-line-number="5">c4 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;b&#39;</span>, <span class="dv">2016</span>, <span class="dv">600</span>)</a>
+<a class="sourceLine" id="cb46-6" data-line-number="6">dt &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="kw">rbind</span>(c1, c2, c3, c4), <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb46-7" data-line-number="7"><span class="kw">names</span>(dt) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&#39;name&#39;</span>, <span class="st">&#39;date&#39;</span>, <span class="st">&#39;amount&#39;</span>)</a>
+<a class="sourceLine" id="cb46-8" data-line-number="8">dt</a></code></pre></div>
 <pre><code>##    name date amount
 ## c1    a 2015    300
 ## c2    a 2016    400
@@ -187,11 +187,11 @@ b      2015-700</code></pre>
 <p>该如何操作？</p>
 <div class="cl">
 <p><strong>N 版</strong></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1">dt<span class="op">$</span>merged &lt;-<span class="st"> </span><span class="kw">paste0</span>(dt<span class="op">$</span>date, <span class="st">&#39;-&#39;</span>, dt<span class="op">$</span>amount)</a>
-<a class="sourceLine" id="cb45-2" data-line-number="2">find_max &lt;-<span class="st">  </span><span class="cf">function</span>(x) </a>
-<a class="sourceLine" id="cb45-3" data-line-number="3">  x[<span class="kw">which.max</span>(<span class="kw">substr</span>(x, <span class="dv">6</span>, <span class="kw">nchar</span>(x)))]</a>
-<a class="sourceLine" id="cb45-4" data-line-number="4">tb &lt;-<span class="st"> </span><span class="kw">tapply</span>(dt<span class="op">$</span>merged, dt<span class="op">$</span>name, find_max)</a>
-<a class="sourceLine" id="cb45-5" data-line-number="5"><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="kw">names</span>(tb), <span class="dt">merged =</span> tb)</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1">dt<span class="op">$</span>merged &lt;-<span class="st"> </span><span class="kw">paste0</span>(dt<span class="op">$</span>date, <span class="st">&#39;-&#39;</span>, dt<span class="op">$</span>amount)</a>
+<a class="sourceLine" id="cb49-2" data-line-number="2">find_max &lt;-<span class="st">  </span><span class="cf">function</span>(x) </a>
+<a class="sourceLine" id="cb49-3" data-line-number="3">  x[<span class="kw">which.max</span>(<span class="kw">substr</span>(x, <span class="dv">6</span>, <span class="kw">nchar</span>(x)))]</a>
+<a class="sourceLine" id="cb49-4" data-line-number="4">tb &lt;-<span class="st"> </span><span class="kw">tapply</span>(dt<span class="op">$</span>merged, dt<span class="op">$</span>name, find_max)</a>
+<a class="sourceLine" id="cb49-5" data-line-number="5"><span class="kw">data.frame</span>(<span class="dt">name =</span> <span class="kw">names</span>(tb), <span class="dt">merged =</span> tb)</a></code></pre></div>
 <pre><code>##   name   merged
 ## a    a 2016-400
 ## b    b 2015-700</code></pre>
@@ -201,26 +201,26 @@ b      2015-700</code></pre>
 </div>
 <div class="cr">
 <p><strong>T 版</strong></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb47-2" data-line-number="2">dt <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(amount <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(amount)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">merged =</span> </a>
-<a class="sourceLine" id="cb47-6" data-line-number="6">           <span class="kw">paste</span>(date, amount, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb47-7" data-line-number="7"><span class="st">  </span><span class="kw">ungroup</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb51-2" data-line-number="2">dt <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-3" data-line-number="3"><span class="st">  </span><span class="kw">group_by</span>(name) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-4" data-line-number="4"><span class="st">  </span><span class="kw">filter</span>(amount <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(amount)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-5" data-line-number="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">merged =</span> </a>
+<a class="sourceLine" id="cb51-6" data-line-number="6">           <span class="kw">paste</span>(date, amount, <span class="dt">sep =</span> <span class="st">&quot;-&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb51-7" data-line-number="7"><span class="st">  </span><span class="kw">ungroup</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   name  date  amount merged  
 ##   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   
 ## 1 a     2016  400    2016-400
 ## 2 b     2015  700    2015-700</code></pre>
 </div>
-<pre><code>
+<div class="clear">
 
-</code></pre>
+</div>
 <p>另有 <strong>data.table</strong> 解决方案：</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" data-line-number="1"><span class="kw">library</span>(data.table)</a>
-<a class="sourceLine" id="cb49-2" data-line-number="2"><span class="kw">setDT</span>(dt)</a>
-<a class="sourceLine" id="cb49-3" data-line-number="3">dt[,.SD[amount <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(amount), .(<span class="dt">merged =</span> <span class="kw">paste0</span>(date, <span class="st">&quot;-&quot;</span>, amount))], by =<span class="st"> </span>.(name)]</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1"><span class="kw">library</span>(data.table)</a>
+<a class="sourceLine" id="cb53-2" data-line-number="2"><span class="kw">setDT</span>(dt)</a>
+<a class="sourceLine" id="cb53-3" data-line-number="3">dt[,.SD[amount <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(amount), .(<span class="dt">merged =</span> <span class="kw">paste0</span>(date, <span class="st">&quot;-&quot;</span>, amount))], by =<span class="st"> </span>.(name)]</a></code></pre></div>
 <pre><code>##    name   merged
 ## 1:    a 2016-400
 ## 2:    b 2015-700</code></pre>
@@ -228,7 +228,7 @@ b      2015-700</code></pre>
 
 # Title
 
-题目^[贡献者为[\@](https://d.cosx.org/u/)，来自 <https://d.cosx.org/d/420762>]：
+`ctb(c())`
 
 :::cl
 
@@ -254,8 +254,8 @@ b      2015-700</code></pre>
 </div>
 <div class="footnotes">
 <hr />
-<ol start="1">
-<li id="fn1"><p>贡献者为<a href="https://d.cosx.org/u/dhfly">@dhfly</a> <a href="https://d.cosx.org/u/dhfly">@dapengde</a> <a href="https://d.cosx.org/u/dhfly">@frankzhang21</a> <a href="https://d.cosx.org/u/dhfly">@zpmu</a>，来自 <a href="https://d.cosx.org/d/421170" class="uri">https://d.cosx.org/d/421170</a><a href="d421170.html#fnref1" class="footnote-back">↩</a></p></li>
+<ol start="9">
+<li id="fn9"><p>贡献者为 <a href="https://d.cosx.org/u/dhfly">@dhfly</a> <a href="https://d.cosx.org/u/dapengde">@dapengde</a> <a href="https://d.cosx.org/u/frankzhang21">@frankzhang21</a> <a href="https://d.cosx.org/u/zpmu">@zpmu</a> 等，来自 <a href="https://d.cosx.org/d/421170" class="uri">https://d.cosx.org/d/421170</a>。<a href="d421170.html#fnref9" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>

@@ -165,7 +165,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="d420808" class="section level1">
 <h1><span class="header-section-number">3</span> 绘制地图</h1>
-<p><a href="https://d.cosx.org/d/420808">题目</a>：ggplot 绘制世界地图的基本方法是这样的：</p>
+<p>题目<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>：
+ggplot 绘制世界地图的基本方法是这样的：</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">require</span>(ggplot2)</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>), </a>
 <a class="sourceLine" id="cb10-3" data-line-number="3">            <span class="kw">aes</span>(long,lat,<span class="dt">group=</span>group)) <span class="op">+</span><span class="st"> </span></a>
@@ -212,6 +213,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">p <span class="op">+</span><span class="st"> </span><span class="kw">coord_quickmap</span>(<span class="dt">xlim =</span> lr)</a></code></pre></div>
 <p><img src="btcookbook_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 </div>
+<div class="clear">
+
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="3">
+<li id="fn3"><p>贡献者为 <a href="https://d.cosx.org/u/dapengde">@dapengde</a> <a href="https://d.cosx.org/u/Cloud2016">@Cloud2016</a> 等，来自 <a href="https://d.cosx.org/d/420808" class="uri">https://d.cosx.org/d/420808</a>。<a href="d420808.html#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
             </section>
 
